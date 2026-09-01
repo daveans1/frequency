@@ -279,7 +279,7 @@
     <string name="delete_profile_confirmation">確定要刪除 %1$s 嗎？刪除後將無法恢復</string>
     <string name="enable_wavy_slider">啟用 Wavy slider</string>
     <string name="wavy">Wavy</string>
-    <string name="visit_vivimusic">訪問 frequency</string>
+    <string name="visit_frequency">訪問 frequency</string>
     <string name="enable_dynamic_icon">啟用動態 icon</string>
     <string name="enable_simpmusic">啟用 Synced 歌詞</string>
     <string name="enable_simpmusic_desc">使用 Synced 以同步歌詞</string>

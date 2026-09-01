@@ -342,9 +342,9 @@
     <string name="import_error_title">Erro ao importar</string>
     <string name="casting_to">Transmitir para %s</string>
     <string name="progress_percent">Progresso %s%%</string>
-    <string name="listening_to_vivimusic">Ouvindo frequency</string>
+    <string name="listening_to_frequency">Ouvindo frequency</string>
     <string name="listen_on_youtube_music">Ouça no YouTube Music</string>
-    <string name="visit_vivimusic">Visite frequency</string>
+    <string name="visit_frequency">Visite frequency</string>
     <string name="open">Abrir</string>
     <string name="failed_to_create_image">Falha ao criar a imagem: %s</string>
     <string name="copied_title">Título Copiado</string>
@@ -627,9 +627,9 @@
     <string name="discord_rpc_preview">Visualização de rich presence</string>
     <string name="discord_presence">Presença</string>
     <string name="discord_connect_description">Entre com o Discord para compartilhar o que você está ouvindo</string>
-    <string name="discord_playing_vivimusic">Jogando frequency</string>
-    <string name="discord_watching_vivimusic">Assistindo frequency</string>
-    <string name="discord_competing_vivimusic">Competindo no frequency</string>
+    <string name="discord_playing_frequency">Jogando frequency</string>
+    <string name="discord_watching_frequency">Assistindo frequency</string>
+    <string name="discord_competing_frequency">Competindo no frequency</string>
     <string name="discord_activity_name">Nome da atividade</string>
     <string name="discord_activity_name_description">Nome personalizado para a atividade (deixe vazio para padrão)</string>
     <string name="discord_advanced_mode">Modo avançado</string>

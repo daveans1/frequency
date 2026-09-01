@@ -320,9 +320,9 @@
     <string name="wrapped_playlist_saved">Playlist salvat</string>
     <string name="casting_to">Se difuzează către %s</string>
     <string name="progress_percent">Progres: %s%%</string>
-    <string name="listening_to_vivimusic">Ascultă pe frequency</string>
+    <string name="listening_to_frequency">Ascultă pe frequency</string>
     <string name="listen_on_youtube_music">Ascultă pe YouTube Music</string>
-    <string name="visit_vivimusic">Vizitează frequency</string>
+    <string name="visit_frequency">Vizitează frequency</string>
     <string name="open">Deschide</string>
     <string name="failed_to_create_image">Nu s-a putut crea imaginea: %s</string>
     <string name="copied_title">Titlul a fost copiat</string>
@@ -627,9 +627,9 @@
     <string name="discord_rpc_preview">Previzualizare Rich Presence</string>
     <string name="discord_presence">Prezență</string>
     <string name="discord_connect_description">Autentifică-te cu Discord pentru a partaja ce asculți</string>
-    <string name="discord_playing_vivimusic">Se joacă frequency</string>
-    <string name="discord_watching_vivimusic">Vizionează frequency</string>
-    <string name="discord_competing_vivimusic">Concurează pe frequency</string>
+    <string name="discord_playing_frequency">Se joacă frequency</string>
+    <string name="discord_watching_frequency">Vizionează frequency</string>
+    <string name="discord_competing_frequency">Concurează pe frequency</string>
     <string name="discord_activity_name">Numele activității</string>
     <string name="discord_activity_name_description">Nume personalizat pentru activitate (lasă gol pentru numele prestabilit)</string>
     <string name="discord_advanced_mode">Mod avansat</string>
