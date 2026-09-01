@@ -24,7 +24,7 @@
 <!--    install permission-->
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
-    <!-- Storage permissions for auto backup to Downloads/vivimusic/ -->
+    <!-- Storage permissions for auto backup to Downloads/frequency/ -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
 
@@ -50,7 +50,7 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.vivimusic"
+        android:theme="@style/Theme.frequency"
         tools:targetApi="tiramisu">
         <uses-library
             android:name="org.apache.http.legacy"
@@ -59,7 +59,7 @@
         <activity
             android:name=".ui.screens.CrashActivity"
             android:exported="false"
-            android:theme="@style/Theme.vivimusic"
+            android:theme="@style/Theme.frequency"
             android:excludeFromRecents="true"
             android:process=":crash" />
 
@@ -69,7 +69,7 @@
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
-            android:theme="@style/Theme.vivimusic">
+            android:theme="@style/Theme.frequency">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -80,7 +80,7 @@
             android:name=".MainActivity"
             android:exported="true"
             android:launchMode="singleTask"
-            android:theme="@style/Theme.vivimusic"
+            android:theme="@style/Theme.frequency"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -99,7 +99,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="https" />
-                <data android:host="vivimusic-listen-together.onrender.com" />
+                <data android:host="frequency-listen-together.onrender.com" />
                 <data android:pathPrefix="/listen" />
             </intent-filter>
 
@@ -110,7 +110,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="vivimusic" />
+                <data android:scheme="frequency" />
                 <data android:host="listen" />
             </intent-filter>
 
