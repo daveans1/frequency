@@ -762,10 +762,10 @@ fun RichPresence(
     val context = LocalContext.current
 
     val activityLabel = when (activityType) {
-        "playing" -> stringResource(R.string.discord_playing_vivimusic)
-        "watching" -> stringResource(R.string.discord_watching_vivimusic)
-        "competing" -> stringResource(R.string.discord_competing_vivimusic)
-        else -> stringResource(R.string.listening_to_vivimusic)
+        "playing" -> stringResource(R.string.discord_playing_frequency)
+        "watching" -> stringResource(R.string.discord_watching_frequency)
+        "competing" -> stringResource(R.string.discord_competing_frequency)
+        else -> stringResource(R.string.listening_to_frequency)
     }
 
     Surface(

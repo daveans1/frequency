@@ -1259,7 +1259,7 @@ fun AppearanceSettings(
                 ),
                 Material3SettingsItem(
                     icon = painterResource(R.drawable.canvas_art),
-                    title = { Text(stringResource(R.string.vivimusic_canvas)) },
+                    title = { Text(stringResource(R.string.frequency_canvas)) },
                     description = {
                         val summary = if (!canvasThumbnailAnimation) {
                             stringResource(R.string.disable)
@@ -1267,7 +1267,7 @@ fun AppearanceSettings(
                             when (canvasSource) {
                                 CanvasSource.AUTO -> stringResource(R.string.canvas_source_auto)
                                 CanvasSource.APPLE_MUSIC -> stringResource(R.string.canvas_source_apple_music)
-                                CanvasSource.VIVIMUSIC -> stringResource(R.string.canvas_source_vivimusic)
+                                CanvasSource.VIVIMUSIC -> stringResource(R.string.canvas_source_frequency)
                                 CanvasSource.TIDAL -> stringResource(R.string.canvas_source_tidal)
                             }
                         }

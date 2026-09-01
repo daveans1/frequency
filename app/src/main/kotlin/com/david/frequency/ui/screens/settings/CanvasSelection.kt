@@ -79,7 +79,7 @@ fun CanvasSelection(
 
         // Description text
         Text(
-            text = stringResource(R.string.vivimusic_canvas_desc),
+            text = stringResource(R.string.frequency_canvas_desc),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(bottom = 24.dp, top = 16.dp)
@@ -170,8 +170,8 @@ fun CanvasSelection(
                             enabled = canvasThumbnailAnimation
                         )
                     },
-                    title = { Text(stringResource(R.string.canvas_source_vivimusic)) },
-                    description = { Text(stringResource(R.string.canvas_source_vivimusic_desc)) },
+                    title = { Text(stringResource(R.string.canvas_source_frequency)) },
+                    description = { Text(stringResource(R.string.canvas_source_frequency_desc)) },
                     enabled = canvasThumbnailAnimation,
                     onClick = { onCanvasSourceChange(CanvasSource.VIVIMUSIC) },
                     isExpressive = true,
@@ -198,7 +198,7 @@ fun CanvasSelection(
     }
 
     TopAppBar(
-        title = { Text(stringResource(R.string.vivimusic_canvas)) },
+        title = { Text(stringResource(R.string.frequency_canvas)) },
         navigationIcon = {
             IconButton(
                 onClick = navController::navigateUp,
