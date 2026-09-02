@@ -443,4 +443,5 @@
     <string name="taste_based_release_notifications">Taste-based release alerts</string>
     <string name="taste_based_release_notifications_subtitle">Notify when artists you frequently listen to release new songs or albums</string>
     <string name="lyrics_providers">Lyrics providers</string>
+    <string name="new_from_your_artists">New from your artists</string>
 </resources>

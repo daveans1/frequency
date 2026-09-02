@@ -103,6 +103,7 @@ class HomeViewModel @Inject constructor(
     val communityPlaylists = MutableStateFlow<List<CommunityPlaylistItem>?>(null)
     val coversAndRemixes = MutableStateFlow<HomePage.Section?>(null)
     val selectedChip = MutableStateFlow<HomePage.Chip?>(null)
+    val newReleasesFromYourArtists = MutableStateFlow<List<AlbumItem>>(emptyList())
     private val previousHomePage = MutableStateFlow<HomePage?>(null)
 
     val allLocalItems = MutableStateFlow<List<LocalItem>>(emptyList())
@@ -613,6 +614,34 @@ class HomeViewModel @Inject constructor(
                     explorePage.value = page.copy(
                         newReleaseAlbums = page.newReleaseAlbums.filterExplicit(hideExplicit)
                     )
+                }.onFailure { reportException(it) }
+            }
+            launch(Dispatchers.IO) {
+                YouTube.newReleaseAlbums().onSuccess { albums ->
+                    val filtered = albums.filterExplicit(hideExplicit)
+                    try {
+                        val bookmarked = database.artistsBookmarkedByCreateDateAsc().first()
+                        val topPlayed = database.allArtistsByPlayTime().first()
+                        val bookmarkedIds = bookmarked.map { it.id }.toSet()
+                        val bookmarkedNames = bookmarked.mapNotNull { it.artist.name?.lowercase() }.toSet()
+                        val topPlayedIds = topPlayed.take(25).map { it.id }.toSet()
+                        val topPlayedNames = topPlayed.take(25).mapNotNull { it.artist.name?.lowercase() }.toSet()
+
+                        val matched = filtered.filter { album ->
+                            val albumArtistIds = album.artists.orEmpty().mapNotNull { it.id }
+                            val albumArtistNames = album.artists.orEmpty().map { it.name.lowercase() }
+                            albumArtistIds.any { it in bookmarkedIds || it in topPlayedIds } ||
+                                albumArtistNames.any { it in bookmarkedNames || it in topPlayedNames }
+                        }.sortedBy { album ->
+                            val albumArtistIds = album.artists.orEmpty().mapNotNull { it.id }
+                            val albumArtistNames = album.artists.orEmpty().map { it.name.lowercase() }
+                            if (albumArtistIds.any { it in bookmarkedIds } || albumArtistNames.any { it in bookmarkedNames }) 0 else 1
+                        }
+
+                        newReleasesFromYourArtists.value = matched
+                    } catch (e: Exception) {
+                        reportException(e)
+                    }
                 }.onFailure { reportException(it) }
             }
             if (YouTube.cookie != null) {

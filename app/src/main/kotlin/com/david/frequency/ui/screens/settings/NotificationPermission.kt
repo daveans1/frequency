@@ -52,8 +52,6 @@ import androidx.navigation.NavController
 import com.david.frequency.LocalPlayerAwareWindowInsets
 import com.david.frequency.R
 import com.david.frequency.constants.EnableNotificationsKey
-import com.david.frequency.constants.NewReleaseNotificationsKey
-import com.david.frequency.constants.TasteBasedReleaseNotificationsKey
 import com.david.frequency.ui.component.IconButton
 import com.david.frequency.ui.component.Material3SettingsGroup
 import com.david.frequency.ui.component.Material3SettingsItem
@@ -118,15 +116,7 @@ fun NotificationPermission(
         mutableStateOf(getDownloadNotificationsSetting(context))
     }
 
-    val (newReleaseNotificationsEnabled, onNewReleaseNotificationsChange) = rememberPreference(
-        NewReleaseNotificationsKey,
-        defaultValue = true
-    )
 
-    val (tasteBasedReleaseNotificationsEnabled, onTasteBasedReleaseNotificationsChange) = rememberPreference(
-        TasteBasedReleaseNotificationsKey,
-        defaultValue = false
-    )
 
     DisposableEffect(context) {
         val sharedPrefs = context.getSharedPreferences("settings", android.content.Context.MODE_PRIVATE)
@@ -268,60 +258,9 @@ fun NotificationPermission(
                     },
                     isExpressive = true,
                     descriptionBelow = true
-                ),
-                Material3SettingsItem(
-                    title = { Text(stringResource(R.string.new_release_notifications)) },
-                    description = { Text(stringResource(R.string.new_release_notifications_subtitle)) },
-                    trailingContent = {
-                        Checkbox(
-                            checked = newReleaseNotificationsEnabled,
-                            onCheckedChange = null,
-                            enabled = isNotificationsActive
-                        )
-                    },
-                    enabled = isNotificationsActive,
-                    onClick = {
-                        onNewReleaseNotificationsChange(!newReleaseNotificationsEnabled)
-                    },
-                    isExpressive = true,
-                    descriptionBelow = true
-                ),
-                Material3SettingsItem(
-                    title = { Text(stringResource(R.string.taste_based_release_notifications)) },
-                    description = { Text(stringResource(R.string.taste_based_release_notifications_subtitle)) },
-                    trailingContent = {
-                        Checkbox(
-                            checked = tasteBasedReleaseNotificationsEnabled,
-                            onCheckedChange = null,
-                            enabled = isNotificationsActive
-                        )
-                    },
-                    enabled = isNotificationsActive,
-                    onClick = {
-                        onTasteBasedReleaseNotificationsChange(!tasteBasedReleaseNotificationsEnabled)
-                    },
-                    isExpressive = true,
-                    descriptionBelow = true
                 )
             )
         )
-
-        Row(
-            modifier = Modifier.padding(top = 24.dp, start = 4.dp, end = 4.dp),
-            verticalAlignment = Alignment.Top
-        ) {
-            Icon(
-                painter = painterResource(R.drawable.info),
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(end = 8.dp)
-            )
-            Text(
-                text = stringResource(R.string.new_release_notifications_info),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-        }
 
         Spacer(modifier = Modifier.height(36.dp))
     }

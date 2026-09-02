@@ -27,7 +27,7 @@ import com.music.innertube.models.YouTubeLocale
 import com.music.kugou.KuGou
 import com.music.lastfm.LastFM
 import com.david.frequency.constants.*
-import com.david.frequency.vivimusic.release.NewReleaseCheckWorker
+import androidx.work.WorkManager
 import com.david.frequency.di.ApplicationScope
 import com.david.frequency.extensions.toEnum
 import com.david.frequency.extensions.toInetSocketAddress
@@ -236,30 +236,16 @@ class App : Application(), SingletonImageLoader.Factory {
                 }
         }
 
-        // One-time migration: clear stale "seen releases" baseline from the buggy first run
-        // so the worker re-snapshots all artists correctly on next launch.
-        val migrationPrefs = getSharedPreferences("app_migrations", Context.MODE_PRIVATE)
-        val NEW_RELEASE_MIGRATION_V1 = "new_release_seen_reset_v1"
-        if (!migrationPrefs.getBoolean(NEW_RELEASE_MIGRATION_V1, false)) {
-            NewReleaseCheckWorker.clearSeenReleases(this)
-            migrationPrefs.edit().putBoolean(NEW_RELEASE_MIGRATION_V1, true).apply()
-        }
-
-        applicationScope.launch(Dispatchers.IO) {
-            dataStore.data
-                .map {
-                    val bookmarkedEnabled = it[NewReleaseNotificationsKey] ?: true
-                    val tasteBasedEnabled = it[TasteBasedReleaseNotificationsKey] ?: false
-                    bookmarkedEnabled || tasteBasedEnabled
-                }
-                .distinctUntilChanged()
-                .collect { enabled ->
-                    if (enabled) {
-                        NewReleaseCheckWorker.schedule(this@App)
-                    } else {
-                        NewReleaseCheckWorker.cancel(this@App)
-                    }
-                }
+        // Cancel legacy background release worker and delete notification channel
+        try {
+            WorkManager.getInstance(this).cancelUniqueWork("NewReleaseCheckWork")
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val notificationManager = getSystemService(NotificationManager::class.java)
+                notificationManager?.deleteNotificationChannel("new_releases")
+            }
+            getSharedPreferences("new_release_prefs", Context.MODE_PRIVATE).edit().clear().apply()
+        } catch (e: Exception) {
+            Timber.e(e, "Failed to clean up legacy NewReleaseCheckWork")
         }
     }
 

@@ -175,6 +175,7 @@ import com.david.frequency.viewmodels.DailyDiscoverItem
 sealed class HomeSection(val id: String, val baseWeight: Int) {
     data object SpeedDial : HomeSection("speed_dial", 100)
     data object QuickPicks : HomeSection("quick_picks", 90)
+    data object NewFromYourArtists : HomeSection("new_from_your_artists", 88)
     data object CoversAndRemixes : HomeSection("covers_and_remixes", 85)
     data object DailyDiscover : HomeSection("daily_discover", 80)
     data object KeepListening : HomeSection("keep_listening", 50)
@@ -578,6 +579,7 @@ fun HomeScreen(
     val dailyDiscover by viewModel.dailyDiscover.collectAsState()
     val coversAndRemixes by viewModel.coversAndRemixes.collectAsState()
     val communityPlaylists by viewModel.communityPlaylists.collectAsState()
+    val newReleasesFromYourArtists by viewModel.newReleasesFromYourArtists.collectAsState()
 
     val allLocalItems by viewModel.allLocalItems.collectAsState()
     val allYtItems by viewModel.allYtItems.collectAsState()
@@ -822,6 +824,7 @@ fun HomeScreen(
         forgottenFavorites,
         communityPlaylists,
         similarRecommendations,
+        newReleasesFromYourArtists,
         homePage?.sections,
         explorePage?.moodAndGenres
     ) {
@@ -830,6 +833,7 @@ fun HomeScreen(
 
         if (!chipActive && speedDialItems.isNotEmpty()) list.add(HomeSection.SpeedDial)
         if (!chipActive && quickPicks?.isNotEmpty() == true) list.add(HomeSection.QuickPicks)
+        if (!chipActive && newReleasesFromYourArtists.isNotEmpty()) list.add(HomeSection.NewFromYourArtists)
         if (!chipActive && coversAndRemixes?.items?.isNotEmpty() == true) list.add(HomeSection.CoversAndRemixes)
         if (!chipActive && communityPlaylists?.isNotEmpty() == true) list.add(HomeSection.FromTheCommunity)
         if (!chipActive && dailyDiscover?.isNotEmpty() == true) list.add(HomeSection.DailyDiscover)
@@ -861,6 +865,7 @@ fun HomeScreen(
                 val base = when (section) {
                     HomeSection.SpeedDial,
                     HomeSection.QuickPicks,
+                    HomeSection.NewFromYourArtists,
                     HomeSection.DailyDiscover -> 500 // Top tier starts equal
 
                     HomeSection.KeepListening,
@@ -876,6 +881,7 @@ fun HomeScreen(
                     // Range: [500-200, 500+400] = [300, 900]
                     HomeSection.SpeedDial,
                     HomeSection.QuickPicks,
+                    HomeSection.NewFromYourArtists,
                     HomeSection.CoversAndRemixes,
                     HomeSection.DailyDiscover -> sectionRandom.nextInt(-200, 400)
 
@@ -896,6 +902,7 @@ fun HomeScreen(
             val defaultOrder = mapOf(
                 HomeSection.SpeedDial to 100,
                 HomeSection.QuickPicks to 90,
+                HomeSection.NewFromYourArtists to 88,
                 HomeSection.CoversAndRemixes to 85,
                 HomeSection.FromTheCommunity to 80,
                 HomeSection.DailyDiscover to 70,
@@ -1368,6 +1375,56 @@ fun HomeScreen(
                                                             }
                                                         }
                                                     )
+                                            )
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        HomeSection.NewFromYourArtists -> {
+                            if (newReleasesFromYourArtists.isNotEmpty()) {
+                                item(key = "new_from_your_artists_title") {
+                                    NavigationTitle(
+                                        title = stringResource(R.string.new_from_your_artists),
+                                        onClick = {
+                                            navController.navigate("new_release")
+                                        },
+                                        modifier = Modifier.animateItem(),
+                                    )
+                                }
+                                item(key = "new_from_your_artists_list") {
+                                    LazyRow(
+                                        contentPadding = WindowInsets.systemBars
+                                            .only(WindowInsetsSides.Horizontal)
+                                            .asPaddingValues(),
+                                        modifier = Modifier.animateItem(),
+                                    ) {
+                                        items(
+                                            items = newReleasesFromYourArtists.distinctBy { it.id },
+                                            key = { it.id },
+                                        ) { album ->
+                                            YouTubeGridItem(
+                                                item = album,
+                                                isActive = mediaMetadata?.album?.id == album.id,
+                                                isPlaying = isPlaying,
+                                                coroutineScope = scope,
+                                                modifier = Modifier
+                                                    .combinedClickable(
+                                                        onClick = {
+                                                            navController.navigate("album/${album.id}")
+                                                        },
+                                                        onLongClick = {
+                                                            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                                                            menuState.show {
+                                                                YouTubeAlbumMenu(
+                                                                    albumItem = album,
+                                                                    navController = navController,
+                                                                    onDismiss = menuState::dismiss,
+                                                                )
+                                                            }
+                                                        },
+                                                    )
+                                                    .animateItem(),
                                             )
                                         }
                                     }
