@@ -28,6 +28,7 @@ fun <T> EnumDialog(
     values: List<T>,
     valueText: @Composable (T) -> String,
     valueDescription: (@Composable (T) -> String)? = null,
+    trailingContent: (@Composable (T) -> Unit)? = null,
 ) {
     ListDialog(
         onDismiss = onDismiss,
@@ -49,7 +50,7 @@ fun <T> EnumDialog(
                 )
 
                 Column(
-                    modifier = Modifier.padding(start = 16.dp),
+                    modifier = Modifier.padding(start = 16.dp).weight(1f),
                 ) {
                     Text(
                         text = valueText(value),
@@ -61,6 +62,10 @@ fun <T> EnumDialog(
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
                     }
+                }
+
+                if (trailingContent != null) {
+                    trailingContent(value)
                 }
             }
         }

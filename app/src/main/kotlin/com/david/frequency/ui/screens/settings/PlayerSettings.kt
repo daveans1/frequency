@@ -1,4 +1,4 @@
-/**
+﻿/**
  * vivimusic Project (C) 2026
  * Licensed under GPL-3.0 | See git history for contributors
  */
@@ -82,6 +82,8 @@ import com.david.frequency.constants.ShowArtistBackgroundVideoKey
 import com.david.frequency.constants.AlbumCanvasEnabledKey
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
+import android.widget.Toast
+import androidx.compose.material3.Icon
 import androidx.datastore.preferences.core.edit
 import com.david.frequency.utils.dataStore
 import kotlinx.coroutines.launch
@@ -255,6 +257,18 @@ fun PlayerSettings(
                     AudioQuality.LOW -> stringResource(R.string.audio_quality_low)
                     AudioQuality.AUTO -> stringResource(R.string.audio_quality_auto)
                 }
+            },
+            trailingContent = {
+                if (it == AudioQuality.MAX) {
+                    IconButton(
+                        onClick = {
+                            Toast.makeText(context, R.string.audio_quality_max_info, Toast.LENGTH_SHORT).show()
+                        },
+                        onLongClick = {}
+                    ) {
+                        Icon(painter = painterResource(R.drawable.info), contentDescription = null)
+                    }
+                }
             }
         )
     }
@@ -276,6 +290,18 @@ fun PlayerSettings(
                     AudioQuality.MEDIUM -> stringResource(R.string.audio_quality_medium)
                     AudioQuality.LOW -> stringResource(R.string.audio_quality_low)
                     AudioQuality.AUTO -> "" // Should not happen
+                }
+            },
+            trailingContent = {
+                if (it == AudioQuality.MAX) {
+                    IconButton(
+                        onClick = {
+                            Toast.makeText(context, R.string.audio_quality_max_info, Toast.LENGTH_SHORT).show()
+                        },
+                        onLongClick = {}
+                    ) {
+                        Icon(painter = painterResource(R.drawable.info), contentDescription = null)
+                    }
                 }
             }
         )
@@ -981,3 +1007,4 @@ fun PlayerSettings(
         }
     )
 }
+
