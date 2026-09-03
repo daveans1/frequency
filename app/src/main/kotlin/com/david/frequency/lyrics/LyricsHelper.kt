@@ -99,35 +99,52 @@ constructor(
         val deferred = fetchesMutex.withLock {
             activeFetches.getOrPut(cacheKey) {
                 helperScope.async {
-                    val providers = resolveLyricsProviders()
-                    for (provider in providers) {
-                        if (provider.isEnabled(context)) {
+                    val providers = resolveLyricsProviders().filter { it.isEnabled(context) }
+                    
+                    val deferredResults = providers.map { provider ->
+                        provider to async {
                             try {
-                                val result = provider.getLyrics(
+                                provider.getLyrics(
                                     mediaMetadata.id,
                                     mediaMetadata.title,
                                     mediaMetadata.artists.joinToString { it.name },
                                     mediaMetadata.duration,
                                     mediaMetadata.album?.title,
                                 )
-                                result.onSuccess { lyrics ->
-                                    return@async LyricsWithProvider(lyrics, provider.name)
-                                }.onFailure {
-                                    reportException(it)
-                                }
                             } catch (e: Exception) {
-                                // Catch network-related exceptions like UnresolvedAddressException
                                 reportException(e)
+                                Result.failure(e)
                             }
                         }
                     }
-                    LyricsWithProvider(LYRICS_NOT_FOUND, "Unknown")
+
+                    var resultWithProvider: LyricsWithProvider? = null
+
+                    for ((provider, deferredResult) in deferredResults) {
+                        val result = deferredResult.await()
+                        if (result.isSuccess) {
+                            val lyrics = result.getOrThrow()
+                            if (lyrics.isNotBlank()) {
+                                resultWithProvider = LyricsWithProvider(lyrics, provider.name)
+                                break
+                            }
+                        }
+                    }
+                    
+                    // Cancel any still-running requests to save network/resources
+                    deferredResults.forEach { it.second.cancel() }
+                    
+                    resultWithProvider ?: LyricsWithProvider(LYRICS_NOT_FOUND, "Unknown")
                 }
             }
         }
 
         return try {
-            deferred.await()
+            val result = deferred.await()
+            if (result.lyrics != LYRICS_NOT_FOUND) {
+                cache.put(cacheKey, listOf(LyricsResult(result.provider, result.lyrics)))
+            }
+            result
         } finally {
             fetchesMutex.withLock {
                 activeFetches.remove(cacheKey)
@@ -169,14 +186,18 @@ constructor(
 
         val allResult = mutableListOf<LyricsResult>()
         val providers = resolveLyricsProviders()
-        currentLyricsJob = CoroutineScope(SupervisorJob()).launch {
-            providers.forEach { provider ->
-                if (provider.isEnabled(context)) {
+        currentLyricsJob = CoroutineScope(SupervisorJob() + Dispatchers.IO).launch {
+            val jobs = providers.filter { it.isEnabled(context) }.map { provider ->
+                launch {
                     try {
                         provider.getAllLyrics(mediaId, songTitle, songArtists, duration, album) { lyrics ->
-                            val result = LyricsResult(provider.name, lyrics)
-                            allResult += result
-                            callback(result)
+                            if (lyrics.isNotBlank()) {
+                                val result = LyricsResult(provider.name, lyrics)
+                                synchronized(allResult) {
+                                    allResult.add(result)
+                                }
+                                callback(result)
+                            }
                         }
                     } catch (e: Exception) {
                         // Catch network-related exceptions like UnresolvedAddressException
@@ -184,6 +205,7 @@ constructor(
                     }
                 }
             }
+            jobs.forEach { it.join() }
             cache.put(cacheKey, allResult)
         }
 
