@@ -6,7 +6,7 @@ package com.david.frequency.constants
  */
 object GithubConfig {
     const val REPO_OWNER = "daveans1"
-    const val REPO_NAME = "vivi-music"
+    const val REPO_NAME = "frequency"
     const val DEFAULT_BRANCH = "main"
 
     val REPO_URL = "https://github.com/$REPO_OWNER/$REPO_NAME"

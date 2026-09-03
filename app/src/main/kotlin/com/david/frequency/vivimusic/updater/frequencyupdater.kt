@@ -64,6 +64,8 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import androidx.work.workDataOf
+import androidx.work.Constraints
+import androidx.work.NetworkType
 import com.david.frequency.BuildConfig
 import com.david.frequency.R
 import coil3.compose.AsyncImage
@@ -341,9 +343,13 @@ fun UpdateScreen(navController: NavHostController) {
                                                 ContextCompat.startActivity(context, installIntent, null)
                                             }
                                         } else {
-                                            val fallbackApkUrl = "https://github.com/${com.david.frequency.constants.GithubConfig.REPO_OWNER}/${com.david.frequency.constants.GithubConfig.REPO_NAME}/releases/download/${currentStatus.version}/vivi.apk"
+                                            val fallbackApkUrl = "https://github.com/${com.david.frequency.constants.GithubConfig.REPO_OWNER}/${com.david.frequency.constants.GithubConfig.REPO_NAME}/releases/download/${currentStatus.version}/frequency.apk"
                                             val urlToDownload = currentStatus.apkUrl ?: fallbackApkUrl
+                                            val constraints = Constraints.Builder()
+                                                .setRequiredNetworkType(NetworkType.CONNECTED)
+                                                .build()
                                             val downloadRequest = OneTimeWorkRequestBuilder<UpdateDownloadWorker>()
+                                                .setConstraints(constraints)
                                                 .setInputData(workDataOf("apk_url" to urlToDownload, "version" to currentStatus.version, "file_size" to currentStatus.size))
                                                 .addTag("update_download")
                                                 .build()
@@ -484,7 +490,7 @@ fun UpdateScreen(navController: NavHostController) {
                                         
                                         if (currentStatus.isDebugBuild) {
                                             Text(
-                                                text = "Debug Build Warning: You are running a locally compiled version of ViVi Music. If you proceed with this update, it will fail due to Android signature conflict. You must either continue updating via Android Studio, or uninstall this app and install an official release first.",
+                                                text = "Debug Build Warning: You are running a locally compiled version of Frequency. If you proceed with this update, it will fail due to Android signature conflict. You must either continue updating via Android Studio, or uninstall this app and install an official release first.",
                                                 style = MaterialTheme.typography.bodyMedium,
                                                 color = MaterialTheme.colorScheme.error,
                                                 modifier = Modifier.padding(bottom = 16.dp)
@@ -766,7 +772,7 @@ private fun fetchHttpJson(urlString: String): String {
     connection.requestMethod = "GET"
     connection.connectTimeout = 15000
     connection.readTimeout = 15000
-    connection.setRequestProperty("User-Agent", "ViVi-Music-App/${BuildConfig.VERSION_NAME}")
+    connection.setRequestProperty("User-Agent", "Frequency-App/${BuildConfig.VERSION_NAME}")
     connection.setRequestProperty("Accept", "application/vnd.github.v3+json")
     connection.instanceFollowRedirects = true
     connection.connect()
@@ -967,13 +973,13 @@ suspend fun checkForUpdate(
                     var apkSizeInMB = ""
                     var apkDownloadUrl = ""
                     
-                    // Prioritize universal release or standard vivi.apk
+                    // Prioritize universal release or standard frequency.apk
                     val assetList = (0 until assets.length()).map { assets.getJSONObject(it) }
                     val targetAsset = assetList.find { 
                         val name = it.getString("name")
                         name.contains("universal-gms-release", ignoreCase = true) && (name.endsWith(".apk", ignoreCase = true) || name.endsWith(".zip", ignoreCase = true)) 
                     }
-                        ?: assetList.find { it.getString("name").equals("vivi.apk", ignoreCase = true) }
+                        ?: assetList.find { it.getString("name").equals("frequency.apk", ignoreCase = true) }
                         ?: assetList.find { it.getString("name").endsWith(".apk", ignoreCase = true) }
 
                     if (targetAsset != null) {
@@ -997,7 +1003,13 @@ suspend fun checkForUpdate(
             }
         } catch (e: Exception) {
             Log.e("UpdateCheck", "Error checking for updates: ${e.message}", e)
-            withContext(Dispatchers.Main) { onError() }
+            withContext(Dispatchers.Main) { 
+                if (e.message?.contains("404") == true) {
+                    onSuccess(BuildConfig.VERSION_NAME, false, emptyList(), "", "", null, null, null)
+                } else {
+                    onError() 
+                }
+            }
         }
     }
 }

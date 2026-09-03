@@ -143,7 +143,7 @@ fun ChangelogScreen(
                 } else {
                     val changelogUrl = URL("https://github.com/${com.david.frequency.constants.GithubConfig.REPO_OWNER}/${com.david.frequency.constants.GithubConfig.REPO_NAME}/releases/download/$tag/changelog.json")
                     val connection = changelogUrl.openConnection() as HttpURLConnection
-                    connection.setRequestProperty("User-Agent", "ViviMusic-Changelog-App")
+                    connection.setRequestProperty("User-Agent", "Frequency-Changelog-App")
                     connection.setRequestProperty("Accept", "application/json")
                     
                     if (connection.responseCode == 200) {
@@ -194,6 +194,16 @@ fun ChangelogScreen(
                             hasError = false
                             showingCached = false
                         }
+                    } else if (connection.responseCode == 404) {
+                        withContext(Dispatchers.Main) {
+                            changelogSections = emptyList()
+                            updateImage = null
+                            updateDescription = "No changelog available for this version."
+                            updateWarning = null
+                            isLoading = false
+                            hasError = false
+                            showingCached = false
+                        }
                     } else {
                         Log.e("ChangelogScreen", "HTTP Error ${connection.responseCode} for $tag")
                         withContext(Dispatchers.Main) { hasError = true; isLoading = false }
@@ -213,54 +223,54 @@ fun ChangelogScreen(
         if (isFetchingOldReleases) return
         isFetchingOldReleases = true
         coroutineScope.launch(Dispatchers.IO) {
+            val list = mutableListOf<ReleaseMetadata>()
             try {
                 val releasesUrl = URL(com.david.frequency.constants.GithubConfig.RELEASES_API_URL)
                 val connection = releasesUrl.openConnection() as HttpURLConnection
-                connection.setRequestProperty("User-Agent", "ViviMusic-Changelog-App")
+                connection.setRequestProperty("User-Agent", "Frequency-Changelog-App")
                 connection.setRequestProperty("Accept", "application/vnd.github+json")
                 
                 if (connection.responseCode == 200) {
                     val json = connection.inputStream.bufferedReader().use { it.readText() }
                     val array = JSONArray(json)
-                    val list = mutableListOf<ReleaseMetadata>()
                     val outputFormatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.getDefault())
 
-                for (i in 0 until array.length()) {
-                    val obj = array.getJSONObject(i)
-                    val tagName = obj.getString("tag_name")
-                    if (!tagName.startsWith("v", ignoreCase = true)) continue
+                    for (i in 0 until array.length()) {
+                        val obj = array.getJSONObject(i)
+                        val tagName = obj.getString("tag_name")
+                        if (!tagName.startsWith("v", ignoreCase = true)) continue
 
-                    val name = obj.optString("name", tagName)
-                    val publishedAt = obj.getString("published_at")
-                    val formattedDate = try {
-                        ZonedDateTime.parse(publishedAt).format(outputFormatter)
-                    } catch (e: Exception) { publishedAt }
+                        val name = obj.optString("name", tagName)
+                        val publishedAt = obj.getString("published_at")
+                        val formattedDate = try {
+                            ZonedDateTime.parse(publishedAt).format(outputFormatter)
+                        } catch (e: Exception) { publishedAt }
 
-                    val assets = obj.getJSONArray("assets")
-                    var changelogUrl: String? = null
-                    for (j in 0 until assets.length()) {
-                        val asset = assets.getJSONObject(j)
-                        if (asset.getString("name") == "changelog.json") {
-                            changelogUrl = asset.getString("browser_download_url")
-                            break
+                        val assets = obj.getJSONArray("assets")
+                        var changelogUrl: String? = null
+                        for (j in 0 until assets.length()) {
+                            val asset = assets.getJSONObject(j)
+                            if (asset.getString("name") == "changelog.json") {
+                                changelogUrl = asset.getString("browser_download_url")
+                                break
+                            }
                         }
-                    }
 
-                    if (changelogUrl != null) {
-                        list.add(ReleaseMetadata(tagName, name, formattedDate, null))
-                    }
-                }
-                    withContext(Dispatchers.Main) {
-                        val currentVersion = ReleaseMetadata(versionTag, versionTag, context.getString(R.string.current), null)
-                        availableReleases = (listOf(currentVersion) + list).distinctBy { it.tagName }
-                        isFetchingOldReleases = false
+                        if (changelogUrl != null) {
+                            list.add(ReleaseMetadata(tagName, name, formattedDate, null))
+                        }
                     }
                 } else {
                     Log.e("ChangelogScreen", "GitHub API Error ${connection.responseCode}")
-                    withContext(Dispatchers.Main) { isFetchingOldReleases = false }
                 }
             } catch (e: Exception) {
-                withContext(Dispatchers.Main) { isFetchingOldReleases = false }
+                Log.e("ChangelogScreen", "Exception in fetchOldReleases: ${e.message}")
+            } finally {
+                withContext(Dispatchers.Main) {
+                    val currentVersion = ReleaseMetadata(versionTag, versionTag, context.getString(R.string.current), null)
+                    availableReleases = (listOf(currentVersion) + list).distinctBy { it.tagName }
+                    isFetchingOldReleases = false
+                }
             }
         }
     }

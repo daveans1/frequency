@@ -44,14 +44,14 @@ class UpdateDownloadWorker(private val context: Context, workerParams: WorkerPar
         try {
             val downloadDir = File(
                 context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),
-                "vivi_updates"
+                "frequency_updates"
             )
             if (!downloadDir.exists()) {
                 downloadDir.mkdirs()
             }
 
             val isZip = apkUrl.contains("nightly.link") || apkUrl.endsWith(".zip")
-            val downloadFile = if (isZip) File(downloadDir, "vivi_temp.zip") else File(downloadDir, "vivi.apk")
+            val downloadFile = if (isZip) File(downloadDir, "frequency_temp.zip") else File(downloadDir, "frequency.apk")
             
             var downloadedLength = 0L
             if (downloadFile.exists()) {
@@ -67,7 +67,7 @@ class UpdateDownloadWorker(private val context: Context, workerParams: WorkerPar
                 conn.requestMethod = "GET"
                 conn.connectTimeout = 20000
                 conn.readTimeout = 20000
-                conn.setRequestProperty("User-Agent", "ViVi-Music-App/${com.david.frequency.BuildConfig.VERSION_NAME}")
+                conn.setRequestProperty("User-Agent", "Frequency-App/${com.david.frequency.BuildConfig.VERSION_NAME}")
                 
                 if (downloadedLength > 0) {
                     conn.setRequestProperty("Range", "bytes=$downloadedLength-")
@@ -153,7 +153,7 @@ class UpdateDownloadWorker(private val context: Context, workerParams: WorkerPar
             connection.disconnect()
 
             val finalFile = if (isZip) {
-                val targetApkFile = File(downloadDir, "vivi.apk")
+                val targetApkFile = File(downloadDir, "frequency.apk")
                 var extracted = false
                 try {
                     ZipInputStream(downloadFile.inputStream()).use { zis ->

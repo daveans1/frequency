@@ -39,7 +39,7 @@ object UpdateNotificationHelper {
         val apkUrl = if (versionName.contains("nightly", ignoreCase = true)) {
             com.david.frequency.constants.GithubConfig.NIGHTLY_DOWNLOAD_URL
         } else {
-            "https://github.com/${com.david.frequency.constants.GithubConfig.REPO_OWNER}/${com.david.frequency.constants.GithubConfig.REPO_NAME}/releases/download/$versionName/vivi.apk"
+            "https://github.com/${com.david.frequency.constants.GithubConfig.REPO_OWNER}/${com.david.frequency.constants.GithubConfig.REPO_NAME}/releases/download/$versionName/frequency.apk"
         }
         val intent = Intent(Intent.ACTION_VIEW, apkUrl.toUri())
 
