@@ -20,16 +20,16 @@ object ListenTogetherServers {
     private const val ServersJson = """
         [
           {
-            "name": "Hugging Face Sync",
+            "name": "Global Sync",
             "url": "wss://devilmi-vivi-music-listen-together.hf.space",
             "location": "Global",
-            "operator": "VIVIDH"
+            "operator": "Frequency"
           },
           {
-            "name": "ViviMusic Sync Server",
+            "name": "Frequency Sync Server",
             "url": "wss://vivimusic-listen-together.onrender.com",
             "location": "USA",
-            "operator": "Vividh"
+            "operator": "Frequency"
           }
         ]
     """

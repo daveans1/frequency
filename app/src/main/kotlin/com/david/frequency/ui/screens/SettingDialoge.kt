@@ -117,7 +117,7 @@ fun SettingDialoge(
                     
                     Text(
                         modifier = Modifier.wrapContentWidth(),
-                        text = "VIVI MUSIC",
+                        text = "FREQUENCY",
                         style = MaterialTheme.typography.titleMedium.copy(
                             fontWeight = FontWeight.Bold,
                             letterSpacing = 1.sp
@@ -195,7 +195,7 @@ fun SettingDialoge(
                                 text = if (isLoggedIn) {
                                     accountEmail.ifEmpty { "Logged In" }
                                 } else {
-                                    "vivimusictest@gmail.com"
+                                    stringResource(R.string.not_logged_in)
                                 },
                                 fontWeight = FontWeight.Light,
                                 color = onSecondaryColor,

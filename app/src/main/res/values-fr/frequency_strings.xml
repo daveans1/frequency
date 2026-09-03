@@ -879,14 +879,14 @@ est irréversible.
 
 	<!-- Onboarding -->
     <string name="welcome_to">Bienvenue sur</string>
-	<string name="welcome_to_vivi">Bienvenue sur Vivi Music</string>
+	<string name="welcome_to_vivi">Bienvenue sur Frequency</string>
     <string name="accessibility">Accessibilité</string>
     <string name="welcome_preparing_subtitle">Nous allons tout préparer pour vous.</string>
     <string name="get_started">C\'est parti !</string>
 
     <string name="perm_required">Obligatoire</string>
     <string name="perm_permissions">Autorisations</string>
-    <string name="perm_intro_text">Ces autorisations sont nécessaires au bon fonctionnement de Vivi Music. Veuillez les accorder pour continuer.</string>
+    <string name="perm_intro_text">Ces autorisations sont nécessaires au bon fonctionnement de Frequency. Veuillez les accorder pour continuer.</string>
 
     <string name="perm_notif_title">Notifications</string>
     <string name="perm_notif_desc">Sachez immédiatement quand votre musique est en cours de lecture et contrôlez-la depuis la barre de notifications.</string>

@@ -515,7 +515,7 @@
     <string name="error_eq_apply_failed">Failed to apply EQ profile: %1$s</string>
 
     <!-- ViviEqualizer Strings -->
-    <string name="vivi_equalizer">ViviEqualizer</string>
+    <string name="vivi_equalizer">Frequency Equalizer</string>
     <string name="vivi_equalizer_desc">Pro-grade acoustic tuning &amp; effects</string>
     <string name="eq_simple">Simple</string>
     <string name="eq_advanced">Advanced</string>
@@ -523,7 +523,7 @@
     <string name="eq_label_mid">Mids</string>
     <string name="eq_label_treble">Treble</string>
     <string name="eq_preset_flat">Flat</string>
-    <string name="eq_preset_vivi_signature">Vivi Signature</string>
+    <string name="eq_preset_vivi_signature">Frequency Signature</string>
     <string name="eq_preset_acoustic">Acoustic</string>
     <string name="eq_preset_spatial">3D Stage</string>
     <string name="eq_preset_bass_boost">Bass Boost</string>
@@ -540,9 +540,9 @@
     <string name="eq_preset_dirac_music">Dirac Music</string>
     <string name="eq_preset_dirac_movie">Dirac Movie</string>
     <string name="eq_preset_dirac_game">Dirac Game</string>
-    <string name="eq_enable_title">ViviEqualizer</string>
+    <string name="eq_enable_title">Frequency Equalizer</string>
     <string name="eq_enable_summary">Toggle professional audio processing</string>
-    <string name="eq_label_vivi">Vivi Signature</string>
+    <string name="eq_label_vivi">Frequency Signature</string>
     <string name="eq_label_dolby">Dolby Atmos</string>
     <string name="eq_label_dirac">Dirac Audio</string>
     <string name="eq_reset">Reset</string>
@@ -894,7 +894,7 @@
 
     <!-- Onboarding -->
     <string name="welcome_to">Welcome to</string>
-    <string name="welcome_to_vivi">Welcome to Vivi</string>
+    <string name="welcome_to_vivi">Welcome to Frequency</string>
     <string name="accessibility">Accessibility</string>
     <string name="welcome_preparing_subtitle">Let\'s get everything ready for you.</string>
     <string name="get_started">Get Started</string>
@@ -1014,9 +1014,9 @@
     <string name="font_plus_jakarta_sans_desc">A premium warm geometric sans-serif typeface.</string>
 
     <!-- YouTube Decryption / Cipher Settings -->
-    <string name="youtube_decryption_settings">Vivi-Extractor</string>
+    <string name="youtube_decryption_settings">Frequency-Extractor</string>
     <string name="youtube_decryption_desc">Configure extractor settings</string>
-    <string name="youtube_decryption_support">Vivi-Extractor</string>
+    <string name="youtube_decryption_support">Frequency-Extractor</string>
     <string name="youtube_decryption_support_desc">Automatically extracts YouTube playback configurations. Locked to Active.</string>
     <string name="auto_cipher_fetching">Automatic Updates</string>
     <string name="auto_cipher_fetching_desc">Fetch new extractor mappings in the background when issues are detected.</string>
