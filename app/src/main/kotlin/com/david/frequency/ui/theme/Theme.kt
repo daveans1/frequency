@@ -41,6 +41,7 @@ fun vivimusicTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     pureBlack: Boolean = false,
     themeColor: Color = DefaultThemeColor,
+    dynamicColor: Boolean = true,
     content: @Composable () -> Unit,
 ) {
     val context = LocalContext.current
@@ -61,8 +62,8 @@ fun vivimusicTheme(
     }
 
 
-    // Determine if system dynamic colors should be used (Android S+ and default theme color)
-    val useSystemDynamicColor = (themeColor == DefaultThemeColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+    // Determine if system dynamic colors should be used (Android S+, dynamicColor enabled, and default theme color)
+    val useSystemDynamicColor = dynamicColor && (themeColor == DefaultThemeColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
 
     // Select the appropriate color scheme generation method
     val baseColorScheme = if (useSystemDynamicColor) {

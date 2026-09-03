@@ -128,12 +128,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import coil3.compose.AsyncImage
-import coil3.imageLoader
-import coil3.request.CachePolicy
-import coil3.request.ImageRequest
-import coil3.request.allowHardware
-import coil3.request.crossfade
-import coil3.toBitmap
 import com.music.innertube.YouTube
 import com.music.innertube.models.SongItem
 import com.music.innertube.models.WatchEndpoint
@@ -198,10 +192,8 @@ import com.david.frequency.ui.screens.SettingDialoge
 import com.david.frequency.ui.screens.navigationBuilder
 import com.david.frequency.ui.screens.settings.DarkMode
 import com.david.frequency.ui.screens.settings.NavigationTab
-import com.david.frequency.ui.theme.ColorSaver
 import com.david.frequency.ui.theme.DefaultThemeColor
 import com.david.frequency.ui.theme.vivimusicTheme
-import com.david.frequency.ui.theme.extractThemeColor
 import com.david.frequency.ui.utils.appBarScrollBehavior
 import com.david.frequency.ui.utils.resetHeightOffset
 import com.david.frequency.utils.SyncUtils
@@ -488,55 +480,13 @@ class MainActivity : ComponentActivity() {
         }
 
         val (selectedThemeColorInt) = rememberPreference(SelectedThemeColorKey, defaultValue = DefaultThemeColor.toArgb())
-        val selectedThemeColor = Color(selectedThemeColorInt)
-
-        var themeColor by rememberSaveable(stateSaver = ColorSaver) {
-            mutableStateOf(selectedThemeColor)
-        }
-
-        LaunchedEffect(selectedThemeColor) {
-            if (!enableDynamicTheme) {
-                themeColor = selectedThemeColor
-            }
-        }
-
-        LaunchedEffect(playerConnection, enableDynamicTheme, selectedThemeColor) {
-            val playerConnection = playerConnection
-            if (!enableDynamicTheme || playerConnection == null) {
-                themeColor = selectedThemeColor
-                return@LaunchedEffect
-            }
-
-            playerConnection.service.currentMediaMetadata.collectLatest { song ->
-                if (song?.thumbnailUrl != null) {
-                    withContext(Dispatchers.IO) {
-                        try {
-                            val result = imageLoader.execute(
-                                ImageRequest.Builder(this@MainActivity)
-                                    .data(song.thumbnailUrl)
-                                    .allowHardware(false)
-                                    .memoryCachePolicy(CachePolicy.ENABLED)
-                                    .diskCachePolicy(CachePolicy.ENABLED)
-                                    .networkCachePolicy(CachePolicy.ENABLED)
-                                    .crossfade(false)
-                                    .build()
-                            )
-                            themeColor = result.image?.toBitmap()?.extractThemeColor() ?: selectedThemeColor
-                        } catch (e: Exception) {
-                            // Fallback to default on error
-                            themeColor = selectedThemeColor
-                        }
-                    }
-                } else {
-                    themeColor = selectedThemeColor
-                }
-            }
-        }
+        val selectedThemeColor = remember(selectedThemeColorInt) { Color(selectedThemeColorInt) }
 
         vivimusicTheme(
             darkTheme = useDarkTheme,
             pureBlack = pureBlack,
-            themeColor = themeColor,
+            themeColor = selectedThemeColor,
+            dynamicColor = enableDynamicTheme,
         ) {
             BoxWithConstraints(
                 modifier = Modifier
