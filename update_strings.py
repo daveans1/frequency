@@ -1,19 +1,17 @@
-﻿path = 'app/src/main/res/values/strings.xml'
+﻿path = 'app/src/main/res/values/frequency_strings.xml'
 with open(path, 'r', encoding='utf-8') as f:
     content = f.read()
 
-content = content.replace(
-    '</resources>',
-    '''    <string name="widget_lens">Frequency Lens</string>
-    <string name="widget_lens_description">Full-bleed artwork widget with auto-fading controls.</string>
-    <string name="widget_identify">Identify Song</string>
-    <string name="widget_identify_description">Quick tap to instantly recognize music playing around you.</string>
-    <string name="widget_mood">Mood Grid</string>
-    <string name="widget_mood_description">Quick launch shortcuts for your favorite playlists.</string>
-    <string name="recognize_music">Identify Song</string>
-    <string name="recognition_history">Recognition History</string>
-</resources>'''
-)
+find_str = '    <!-- Theme Palette Names -->\n    <string name="palette_dynamic">Dynamic</string>'
+replace_str = '''    <!-- Theme Palette Names -->
+    <string name="palette_dynamic">Dynamic</string>
+    <string name="palette_frequency">Frequency (Cyan)</string>
+    <string name="frequency_vibe_preset">Frequency Signature Experience</string>
+    <string name="frequency_vibe_preset_desc">Instantly tune interface: Cyber-cyan accent, floating acoustic dock &amp; ambient player</string>
+    <string name="frequency_vibe_applied">Frequency aesthetic applied! Enjoy the vibe.</string>'''
+
+if 'palette_frequency' not in content:
+    content = content.replace(find_str, replace_str)
 
 with open(path, 'w', encoding='utf-8') as f:
     f.write(content)

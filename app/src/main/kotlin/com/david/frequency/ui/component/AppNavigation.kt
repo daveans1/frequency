@@ -34,6 +34,9 @@ import com.david.frequency.ui.screens.Screens
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 
+import com.david.frequency.ui.theme.FrequencyColors
+import androidx.compose.material3.NavigationBarItemDefaults
+
 @Immutable
 private data class NavItemState(
     val isSelected: Boolean,
@@ -57,7 +60,7 @@ fun AppNavigationRail(
     pureBlack: Boolean = false,
     onSearchLongClick: (() -> Unit)? = null
 ) {
-    val containerColor = if (pureBlack) Color.Black else MaterialTheme.colorScheme.surfaceContainer
+    val containerColor = if (pureBlack) Color.Black else FrequencyColors.AcousticGlass.copy(alpha = 0.92f)
     val haptics = LocalHapticFeedback.current
     val viewConfiguration = LocalViewConfiguration.current
     
@@ -150,8 +153,8 @@ fun AppNavigationBar(
             bottomInset = bottomInset
         )
     } else {
-        val containerColor = if (pureBlack) Color.Black else MaterialTheme.colorScheme.surfaceContainer
-        val contentColor = if (pureBlack) Color.White else MaterialTheme.colorScheme.onSurfaceVariant
+        val containerColor = if (pureBlack) Color.Black else FrequencyColors.AcousticGlass.copy(alpha = 0.92f)
+        val contentColor = if (pureBlack) Color.White else FrequencyColors.SonicMuted
         val haptics = LocalHapticFeedback.current
         val viewConfiguration = LocalViewConfiguration.current
         
@@ -206,6 +209,13 @@ fun AppNavigationBar(
                         // For search item, click is handled via InteractionSource
                     },
                     interactionSource = interactionSource,
+                    colors = NavigationBarItemDefaults.colors(
+                        selectedIconColor = FrequencyColors.SonicCyan,
+                        selectedTextColor = FrequencyColors.SonicCyan,
+                        indicatorColor = FrequencyColors.ElectricAqua.copy(alpha = 0.22f),
+                        unselectedIconColor = FrequencyColors.SonicMuted,
+                        unselectedTextColor = FrequencyColors.SonicMuted
+                    ),
                     icon = {
                         Icon(
                             painter = painterResource(id = iconRes),

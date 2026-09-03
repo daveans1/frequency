@@ -6,6 +6,7 @@
 package com.david.frequency.ui.component
 
 import android.annotation.SuppressLint
+import com.david.frequency.ui.theme.FrequencyColors
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
@@ -105,10 +106,11 @@ fun <E> ChipsRow(
                 },
                 selected = isSelected,
                 colors = FilterChipDefaults.filterChipColors(
-                    containerColor = containerColor,
-                    selectedContainerColor = MaterialTheme.colorScheme.primaryContainer,
-                    selectedLabelColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                    selectedLeadingIconColor = MaterialTheme.colorScheme.onPrimaryContainer
+                    containerColor = FrequencyColors.AcousticGlass.copy(alpha = 0.75f),
+                    labelColor = FrequencyColors.SonicMuted,
+                    selectedContainerColor = FrequencyColors.ElectricAqua.copy(alpha = 0.22f),
+                    selectedLabelColor = FrequencyColors.SonicCyan,
+                    selectedLeadingIconColor = FrequencyColors.SonicCyan
                 ),
                 onClick = { 
                     haptics.performHapticFeedback(HapticFeedbackType.TextHandleMove)
@@ -129,8 +131,8 @@ fun <E> ChipsRow(
                 border = FilterChipDefaults.filterChipBorder(
                     enabled = true,
                     selected = isSelected,
-                    borderColor = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f),
-                    selectedBorderColor = Color.Transparent
+                    borderColor = FrequencyColors.GlassBorder,
+                    selectedBorderColor = FrequencyColors.SonicCyan.copy(alpha = 0.6f)
                 ),
                 modifier = Modifier
                     .height(36.dp)

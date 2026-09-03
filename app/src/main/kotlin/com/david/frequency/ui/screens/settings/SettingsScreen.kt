@@ -46,6 +46,10 @@ import com.david.frequency.BuildConfig
 import com.david.frequency.LocalPlayerAwareWindowInsets
 import com.david.frequency.R
 import com.david.frequency.ui.component.IconButton
+import com.david.frequency.ui.theme.FrequencyColors
+import com.david.frequency.ui.component.AcousticBentoCard
+import com.david.frequency.ui.component.AcousticTelemetryStrip
+import com.david.frequency.ui.component.acousticGlass
 import com.david.frequency.ui.component.Material3SettingsGroup
 import com.david.frequency.ui.component.Material3SettingsItem
 import com.david.frequency.ui.utils.backToMain
@@ -121,13 +125,12 @@ fun SettingsScreen(
             modifier = Modifier.padding(start = 8.dp, top = 24.dp, bottom = 12.dp)
         )
 
-        // Search Bar
-        Surface(
+        // Search Bar (Acoustic Glass)
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 16.dp),
-            shape = RoundedCornerShape(50),
-            color = MaterialTheme.colorScheme.surfaceContainerLow,
+                .padding(bottom = 14.dp)
+                .acousticGlass(cornerRadius = 50.dp, alpha = 0.75f)
         ) {
             Row(
                 modifier = Modifier

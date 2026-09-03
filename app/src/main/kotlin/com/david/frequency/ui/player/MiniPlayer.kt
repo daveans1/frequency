@@ -18,6 +18,7 @@ import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.spring
+import com.david.frequency.ui.theme.FrequencyColors
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.core.tween
@@ -278,11 +279,11 @@ private fun NewMiniPlayer(
     )
     
     // Memoize colors
-    val backgroundColor = if (pureBlack && useDarkTheme) Color.Black else MaterialTheme.colorScheme.surfaceContainer
+    val backgroundColor = if (pureBlack && useDarkTheme) Color.Black else if (miniPlayerBackground == PlayerBackgroundStyle.DEFAULT) FrequencyColors.AcousticGlass.copy(alpha = 0.92f) else MaterialTheme.colorScheme.surfaceContainer
     val isDynamicBackground = miniPlayerBackground != PlayerBackgroundStyle.DEFAULT
     
-    val primaryColor = if (isDynamicBackground) Color.White else MaterialTheme.colorScheme.primary
-    val outlineColor = if (isDynamicBackground) Color.White.copy(alpha = 0.5f) else MaterialTheme.colorScheme.outline
+    val primaryColor = if (isDynamicBackground) Color.White else FrequencyColors.SonicCyan
+    val outlineColor = if (isDynamicBackground) Color.White.copy(alpha = 0.5f) else FrequencyColors.GlassBorder
     val onSurfaceColor = if (isDynamicBackground) Color.White else MaterialTheme.colorScheme.onSurface
     val errorColor = MaterialTheme.colorScheme.error
 
@@ -357,10 +358,10 @@ private fun NewMiniPlayer(
                 .then(if (isTabletLandscape) Modifier.width(500.dp).align(Alignment.Center) else Modifier.fillMaxWidth())
                 .height(64.dp)
                 .offset { IntOffset(offsetXAnimatable.value.roundToInt(), 0) }
-                .shadow(elevation = 6.dp, shape = RoundedCornerShape(32.dp), spotColor = primaryColor.copy(alpha = 0.15f))
+                .shadow(elevation = 10.dp, shape = RoundedCornerShape(32.dp), spotColor = FrequencyColors.ElectricAqua.copy(alpha = 0.25f))
                 .clip(RoundedCornerShape(32.dp))
                 .background(color = backgroundColor)
-                .border(1.dp, outlineColor.copy(alpha = 0.25f), RoundedCornerShape(32.dp))
+                .border(1.dp, outlineColor.copy(alpha = 0.45f), RoundedCornerShape(32.dp))
         ) {
             // Background Layers
             MiniPlayerBackgroundLayer(

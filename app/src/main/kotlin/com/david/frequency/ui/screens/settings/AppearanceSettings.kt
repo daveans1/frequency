@@ -50,6 +50,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -152,7 +153,7 @@ fun AppearanceSettings(
         defaultValue = true
     )
 
-    val (selectedThemeColorInt) = rememberPreference(
+    val (selectedThemeColorInt, onSelectedThemeColorChange) = rememberPreference(
         SelectedThemeColorKey,
         defaultValue = DefaultThemeColor.toArgb()
     )
@@ -891,6 +892,29 @@ fun AppearanceSettings(
 //                        onClick = { handleIconChange(!enableDynamicIcon) }
 //                    )
 //                )
+                add(
+                    Material3SettingsItem(
+                        icon = painterResource(R.drawable.frequency_music_small_icon),
+                        title = { Text(stringResource(R.string.frequency_vibe_preset)) },
+                        description = { Text(stringResource(R.string.frequency_vibe_preset_desc)) },
+                        onClick = {
+                            onSelectedThemeColorChange(Color(0xFF20E0B0).toArgb())
+                            onDynamicThemeChange(false)
+                            onFloatingNavBarChange(true)
+                            onUsePlayerV2Change(true)
+                            onUseNewPlayerDesignChange(false)
+                            onPlayerBackgroundChange(PlayerBackgroundStyle.GLOW_ANIMATED)
+                            onSliderStyleChange(SliderStyle.WAVY)
+                            onUseNewMiniPlayerDesignChange(true)
+                            onUseExpressiveAlbumDesignChange(true)
+                            coroutineScope.launch {
+                                snackbarHostState.showSnackbar(activity.getString(R.string.frequency_vibe_applied))
+                            }
+                        },
+                        isExpressive = true,
+                        descriptionBelow = true
+                    )
+                )
                 add(
                     Material3SettingsItem(
                         icon = painterResource(R.drawable.palette),

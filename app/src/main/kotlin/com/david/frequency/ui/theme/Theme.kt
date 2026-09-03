@@ -35,6 +35,7 @@ import com.david.frequency.utils.rememberPreference
 import androidx.compose.ui.text.font.FontFamily
 
 val DefaultThemeColor = Color(0xFFED5564)
+val FrequencySignatureColor = Color(0xFF20E0B0)
 
 @Composable
 fun vivimusicTheme(
@@ -70,12 +71,13 @@ fun vivimusicTheme(
         // Use standard Material 3 dynamic color functions for system wallpaper colors
         if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
     } else {
-        // Use materialKolor only when a specific seed color is provided
+        // Use materialKolor with the chosen color or fallback to the brand's FrequencySignatureColor
+        val effectiveSeed = if (themeColor == DefaultThemeColor) FrequencySignatureColor else themeColor
         rememberDynamicColorScheme(
-            seedColor = themeColor, // themeColor is guaranteed non-default here
+            seedColor = effectiveSeed,
             isDark = darkTheme,
             specVersion = ColorSpec.SpecVersion.SPEC_2025,
-            style = if (themeColor.toArgb() == 0xFF000000.toInt()) PaletteStyle.Monochrome else PaletteStyle.TonalSpot
+            style = if (effectiveSeed.toArgb() == 0xFF000000.toInt()) PaletteStyle.Monochrome else PaletteStyle.TonalSpot
         )
     }
 

@@ -23,6 +23,8 @@ import androidx.compose.animation.scaleOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import com.david.frequency.ui.theme.FrequencyColors
+import com.david.frequency.ui.component.neonGlow
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -268,13 +270,13 @@ private fun ReadyState(
     ) {
         Box(
             modifier = Modifier
-                .size(200.dp)
+                .size(220.dp)
                 .clip(CircleShape)
                 .background(
                     Brush.radialGradient(
                         colors = listOf(
-                            MaterialTheme.colorScheme.primary.copy(alpha = 0.3f),
-                            MaterialTheme.colorScheme.primary.copy(alpha = 0.1f),
+                            FrequencyColors.SonicCyan.copy(alpha = 0.35f),
+                            FrequencyColors.ElectricAqua.copy(alpha = 0.12f),
                             Color.Transparent
                         )
                     )
@@ -286,14 +288,16 @@ private fun ReadyState(
                 modifier = Modifier
                     .size(160.dp)
                     .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.primary),
+                    .background(FrequencyColors.AcousticGlass)
+                    .border(2.dp, FrequencyColors.SonicCyan, CircleShape)
+                    .neonGlow(FrequencyColors.ElectricAqua, 16.dp, CircleShape),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
                     painter = painterResource(R.drawable.mic),
                     contentDescription = null,
                     modifier = Modifier.size(64.dp),
-                    tint = MaterialTheme.colorScheme.onPrimary
+                    tint = FrequencyColors.SonicCyan
                 )
             }
         }
@@ -301,7 +305,8 @@ private fun ReadyState(
         Text(
             text = stringResource(R.string.tap_to_recognize),
             style = MaterialTheme.typography.titleMedium,
-            color = MaterialTheme.colorScheme.onSurface
+            color = FrequencyColors.SonicWhite,
+            fontWeight = FontWeight.SemiBold
         )
     }
 }
@@ -313,7 +318,7 @@ private fun ListeningState(
     val infiniteTransition = rememberInfiniteTransition(label = "pulse")
     val scale by infiniteTransition.animateFloat(
         initialValue = 1f,
-        targetValue = 1.2f,
+        targetValue = 1.25f,
         animationSpec = infiniteRepeatable(
             animation = tween(1000, easing = LinearEasing),
             repeatMode = RepeatMode.Reverse
@@ -325,7 +330,7 @@ private fun ListeningState(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
-        // Container large enough for scaled animation (200dp * 1.2 = 240dp)
+        // Container large enough for scaled animation (200dp * 1.25 = 250dp)
         Box(
             modifier = Modifier.size(260.dp),
             contentAlignment = Alignment.Center
@@ -333,19 +338,19 @@ private fun ListeningState(
             // Outer pulsing ring
             Box(
                 modifier = Modifier
-                    .size(200.dp)
+                    .size(210.dp)
                     .scale(scale)
                     .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.2f))
+                    .background(FrequencyColors.SonicCyan.copy(alpha = 0.22f))
             )
             
             // Inner pulsing ring
             Box(
                 modifier = Modifier
-                    .size(180.dp)
-                    .scale(scale * 0.9f)
+                    .size(185.dp)
+                    .scale(scale * 0.88f)
                     .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.3f))
+                    .background(FrequencyColors.ElectricAqua.copy(alpha = 0.35f))
             )
             
             // Main button
@@ -353,7 +358,9 @@ private fun ListeningState(
                 modifier = Modifier
                     .size(160.dp)
                     .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.primary)
+                    .background(FrequencyColors.AcousticGlass)
+                    .border(2.dp, FrequencyColors.SonicCyan, CircleShape)
+                    .neonGlow(FrequencyColors.SonicCyan, 24.dp, CircleShape)
                     .clickable { onCancel() },
                 contentAlignment = Alignment.Center
             ) {
@@ -361,7 +368,7 @@ private fun ListeningState(
                     painter = painterResource(R.drawable.mic),
                     contentDescription = null,
                     modifier = Modifier.size(64.dp),
-                    tint = MaterialTheme.colorScheme.onPrimary
+                    tint = FrequencyColors.SonicCyan
                 )
             }
         }
@@ -369,7 +376,8 @@ private fun ListeningState(
         Text(
             text = stringResource(R.string.listening),
             style = MaterialTheme.typography.titleMedium,
-            color = MaterialTheme.colorScheme.primary
+            color = FrequencyColors.SonicCyan,
+            fontWeight = FontWeight.Bold
         )
         
         OutlinedButton(onClick = onCancel) {

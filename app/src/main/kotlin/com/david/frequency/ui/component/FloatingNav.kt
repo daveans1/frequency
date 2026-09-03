@@ -58,6 +58,8 @@ import com.david.frequency.ui.screens.Screens
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 
+import com.david.frequency.ui.theme.FrequencyColors
+
 @Composable
 fun FloatingNavigationBar(
     navigationItems: List<Screens>,
@@ -69,8 +71,9 @@ fun FloatingNavigationBar(
     onSearchLongClick: (() -> Unit)? = null,
     bottomInset: Dp = 0.dp
 ) {
-    val containerColor = if (pureBlack) Color.Black else MaterialTheme.colorScheme.surfaceContainerHigh
-    val outlineColor = if (pureBlack) Color(0xFF1E1E1E) else MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.35f)
+    val containerColor = if (pureBlack) Color.Black else FrequencyColors.AcousticGlass.copy(alpha = 0.88f)
+    val outlineColor = if (pureBlack) Color(0xFF1E1E1E) else FrequencyColors.GlassBorder
+    val spotGlowColor = if (pureBlack) Color.Transparent else FrequencyColors.ElectricAqua.copy(alpha = 0.25f)
     
     // Left items are all main screens EXCEPT Search
     val leftItems = remember(navigationItems) {
@@ -90,7 +93,7 @@ fun FloatingNavigationBar(
         Row(
             modifier = Modifier
                 .height(64.dp)
-                .shadow(elevation = 8.dp, shape = CircleShape, spotColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.15f))
+                .shadow(elevation = 12.dp, shape = CircleShape, spotColor = spotGlowColor)
                 .background(containerColor, shape = CircleShape)
                 .border(width = 1.dp, color = outlineColor, shape = CircleShape)
                 .padding(horizontal = 8.dp, vertical = 6.dp),
@@ -120,7 +123,7 @@ fun FloatingNavigationBar(
         Box(
             modifier = Modifier
                 .size(64.dp)
-                .shadow(elevation = 8.dp, shape = CircleShape, spotColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.15f))
+                .shadow(elevation = 12.dp, shape = CircleShape, spotColor = spotGlowColor)
                 .background(containerColor, shape = CircleShape)
                 .border(width = 1.dp, color = outlineColor, shape = CircleShape),
             contentAlignment = Alignment.Center
@@ -185,13 +188,13 @@ private fun FloatingNavItem(
 
     val iconRes = if (isSelected) screen.iconIdActive else screen.iconIdInactive
     val contentColor by animateColorAsState(
-        targetValue = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+        targetValue = if (isSelected) FrequencyColors.SonicCyan else FrequencyColors.SonicMuted,
         animationSpec = tween(durationMillis = 200)
     )
 
-    // Material 3 Expressive smooth animated pill background for selected items
+    // Acoustic Glass illuminated pill background for selected items
     val backgroundColor by animateColorAsState(
-        targetValue = if (isSelected) MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f) else Color.Transparent,
+        targetValue = if (isSelected) FrequencyColors.ElectricAqua.copy(alpha = 0.18f) else Color.Transparent,
         animationSpec = tween(durationMillis = 200)
     )
 

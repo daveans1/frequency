@@ -18,26 +18,24 @@ import com.david.frequency.constants.PlayerBackgroundStyle
  * This object provides standardized color schemes for Default, Squiggly, and Slim sliders
  * used in the music player interface, ensuring visual consistency and proper contrast.
  */
+import com.david.frequency.ui.theme.FrequencyColors
+
 object PlayerSliderColors {
 
-    /**
-     * Standard slider colors for all slider types
-     * 
-     * @param activeColor Color for active track, ticks, and thumb
-     * @param playerBackground The player background style
-     * @param useDarkTheme Whether dark theme is being used
-     * @return SliderColors configuration
-     */
     @Composable
     fun getSliderColors(
         activeColor: Color,
         playerBackground: PlayerBackgroundStyle,
         useDarkTheme: Boolean
     ): SliderColors {
+        val effectiveActive = when (playerBackground) {
+            PlayerBackgroundStyle.DEFAULT -> FrequencyColors.SonicCyan
+            else -> activeColor
+        }
         val inactiveTrackColor = when (playerBackground) {
             PlayerBackgroundStyle.DEFAULT -> {
                 if (useDarkTheme) {
-                    MaterialTheme.colorScheme.outline.copy(alpha = 0.4f)
+                    FrequencyColors.AcousticGlassSubtle
                 } else {
                     MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
                 }
@@ -48,13 +46,13 @@ object PlayerSliderColors {
         }
         
         return SliderDefaults.colors(
-            activeTrackColor = activeColor,
-            activeTickColor = activeColor,
-            thumbColor = activeColor,
+            activeTrackColor = effectiveActive,
+            activeTickColor = effectiveActive,
+            thumbColor = effectiveActive,
             inactiveTrackColor = inactiveTrackColor,
-            disabledActiveTrackColor = activeColor,
+            disabledActiveTrackColor = effectiveActive,
             disabledInactiveTrackColor = inactiveTrackColor,
-            disabledThumbColor = activeColor
+            disabledThumbColor = effectiveActive
         )
     }
 }
