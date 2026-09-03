@@ -1,5 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/shortcut_mic"
+        android:shortcutId="recognition"
+        android:shortcutShortLabel="@string/recognize_music">
+        <intent
+            android:action="com.david.frequency.action.RECOGNITION"
+            android:targetClass="com.david.frequency.MainActivity"
+            android:targetPackage="com.david.frequency" />
+    </shortcut>
     <shortcut
         android:enabled="true"
         android:icon="@drawable/shortcut_search"
@@ -7,6 +17,16 @@
         android:shortcutShortLabel="@string/search">
         <intent
             android:action="com.david.frequency.action.SEARCH"
+            android:targetClass="com.david.frequency.MainActivity"
+            android:targetPackage="com.david.frequency" />
+    </shortcut>
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/shortcut_heart"
+        android:shortcutId="liked"
+        android:shortcutShortLabel="@string/liked_songs">
+        <intent
+            android:action="com.david.frequency.action.LIKED_SONGS"
             android:targetClass="com.david.frequency.MainActivity"
             android:targetPackage="com.david.frequency" />
     </shortcut>

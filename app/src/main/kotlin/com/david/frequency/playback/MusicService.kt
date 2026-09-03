@@ -186,6 +186,8 @@ import com.david.frequency.utils.get
 import com.david.frequency.utils.reportException
 import com.david.frequency.widget.vivimusicWidgetManager
 import com.david.frequency.widget.MusicWidgetReceiver
+import com.david.frequency.widget.LensWidgetReceiver
+import com.david.frequency.widget.MoodGridWidgetReceiver
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -3286,25 +3288,67 @@ class MusicService :
 
     override fun onGetSession(controllerInfo: MediaSession.ControllerInfo) = mediaSession
 
+    private var lensControlsTimerJob: kotlinx.coroutines.Job? = null
+
+    private fun showLensControlsTemporarily() {
+        widgetManager.setLensControlsVisible(true)
+        updateWidgetUI(player.isPlaying)
+        lensControlsTimerJob?.cancel()
+        lensControlsTimerJob = scope.launch {
+            kotlinx.coroutines.delay(3000)
+            widgetManager.setLensControlsVisible(false)
+            updateWidgetUI(player.isPlaying)
+        }
+    }
+
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         when (intent?.action) {
-            MusicWidgetReceiver.ACTION_PLAY_PAUSE -> {
+            MusicWidgetReceiver.ACTION_PLAY_PAUSE, LensWidgetReceiver.ACTION_PLAY_PAUSE -> {
                 if (player.isPlaying) player.pause() else player.play()
-                updateWidgetUI(player.isPlaying)
+                if (intent.action == LensWidgetReceiver.ACTION_PLAY_PAUSE) showLensControlsTemporarily()
+                else updateWidgetUI(player.isPlaying)
             }
-            MusicWidgetReceiver.ACTION_LIKE -> {
+            MusicWidgetReceiver.ACTION_LIKE, LensWidgetReceiver.ACTION_LIKE -> {
                 toggleLike()
+                if (intent.action == LensWidgetReceiver.ACTION_LIKE) showLensControlsTemporarily()
             }
-            MusicWidgetReceiver.ACTION_NEXT -> {
+            MusicWidgetReceiver.ACTION_NEXT, LensWidgetReceiver.ACTION_NEXT -> {
                 player.seekToNext()
-                updateWidgetUI(player.isPlaying)
+                if (intent.action == LensWidgetReceiver.ACTION_NEXT) showLensControlsTemporarily()
+                else updateWidgetUI(player.isPlaying)
             }
-            MusicWidgetReceiver.ACTION_PREVIOUS -> {
+            MusicWidgetReceiver.ACTION_PREVIOUS, LensWidgetReceiver.ACTION_PREVIOUS -> {
                 player.seekToPrevious()
+                if (intent.action == LensWidgetReceiver.ACTION_PREVIOUS) showLensControlsTemporarily()
+                else updateWidgetUI(player.isPlaying)
+            }
+            MusicWidgetReceiver.ACTION_UPDATE_WIDGET, LensWidgetReceiver.ACTION_UPDATE_LENS_WIDGET -> {
                 updateWidgetUI(player.isPlaying)
             }
-            MusicWidgetReceiver.ACTION_UPDATE_WIDGET -> {
-                updateWidgetUI(player.isPlaying)
+            LensWidgetReceiver.ACTION_TOGGLE_CONTROLS -> {
+                showLensControlsTemporarily()
+            }
+            MoodGridWidgetReceiver.ACTION_PLAY_MOOD -> {
+                val playlistId = intent.getStringExtra(MoodGridWidgetReceiver.EXTRA_PLAYLIST_ID)
+                if (playlistId != null) {
+                    scope.launch {
+                        val songs = if (playlistId == com.david.frequency.db.entities.PlaylistEntity.LIKED_PLAYLIST_ID) {
+                            database.likedSongsByCreateDateAsc().first()
+                        } else if (playlistId == com.david.frequency.db.entities.PlaylistEntity.DOWNLOADED_PLAYLIST_ID) {
+                            database.downloadedSongsByCreateDateAsc().first()
+                        } else {
+                            database.playlistSongs(playlistId).first().map { it.song }
+                        }
+                        
+                        if (songs.isNotEmpty()) {
+                            val items = songs.shuffled().map { it.toMediaItem() }
+                            withContext(Dispatchers.Main) {
+                                player.setMediaItems(items)
+                                player.play()
+                            }
+                        }
+                    }
+                }
             }
         }
 

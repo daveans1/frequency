@@ -224,7 +224,9 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     companion object {
+        private const val ACTION_RECOGNITION = "com.david.frequency.action.RECOGNITION"
         private const val ACTION_SEARCH = "com.david.frequency.action.SEARCH"
+        private const val ACTION_LIKED_SONGS = "com.david.frequency.action.LIKED_SONGS"
         private const val ACTION_LIBRARY = "com.david.frequency.action.LIBRARY"
     }
 
@@ -527,9 +529,24 @@ class MainActivity : ComponentActivity() {
                 }
                 val tabOpenedFromShortcut = remember {
                     when (intent?.action) {
-                        ACTION_SEARCH -> NavigationTab.LIBRARY
-                        ACTION_LIBRARY -> NavigationTab.SEARCH
+                        ACTION_SEARCH -> NavigationTab.SEARCH
+                        ACTION_LIBRARY, ACTION_LIKED_SONGS -> NavigationTab.LIBRARY
                         else -> null
+                    }
+                }
+                
+                LaunchedEffect(intent?.action) {
+                    when (intent?.action) {
+                        ACTION_RECOGNITION -> {
+                            navController.navigate("recognition") {
+                                launchSingleTop = true
+                            }
+                        }
+                        ACTION_LIKED_SONGS -> {
+                            navController.navigate("local_playlist/LP_LIKED") {
+                                launchSingleTop = true
+                            }
+                        }
                     }
                 }
 
