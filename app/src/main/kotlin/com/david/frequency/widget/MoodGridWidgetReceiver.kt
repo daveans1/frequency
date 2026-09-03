@@ -50,13 +50,13 @@ class MoodGridWidgetReceiver : AppWidgetProvider() {
             appWidgetManager: AppWidgetManager,
             appWidgetId: Int
         ) {
-            val prefs = context.getSharedPreferences("mood_grid_widget_", Context.MODE_PRIVATE)
+            val prefs = context.getSharedPreferences("mood_grid_widget_$appWidgetId", Context.MODE_PRIVATE)
             
             val views = RemoteViews(context.packageName, R.layout.widget_mood_grid)
             
             for (i in 0..3) {
-                val playlistId = prefs.getString("tile__id", null)
-                val playlistName = prefs.getString("tile__name", "Mood ")
+                val playlistId = prefs.getString("tile_${i}_id", null)
+                val playlistName = prefs.getString("tile_${i}_name", "Mood ${i + 1}")
                 
                 val textId = when(i) {
                     0 -> R.id.widget_mood_text_1
@@ -76,7 +76,7 @@ class MoodGridWidgetReceiver : AppWidgetProvider() {
                 
                 if (playlistId != null) {
                     val intent = Intent(context, MoodGridWidgetReceiver::class.java).apply {
-                        action = "_"
+                        action = "${ACTION_PLAY_MOOD}_$i"
                         putExtra(EXTRA_PLAYLIST_ID, playlistId)
                     }
                     val pendingIntent = PendingIntent.getBroadcast(

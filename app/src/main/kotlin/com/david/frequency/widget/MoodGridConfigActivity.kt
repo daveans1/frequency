@@ -171,7 +171,7 @@ class MoodGridConfigActivity : ComponentActivity() {
         ) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 Text(
-                    text = playlist?.name ?: "Tap to select\nMood ",
+                    text = playlist?.name ?: "Tap to select\nMood ${index + 1}",
                     color = MaterialTheme.colorScheme.onSecondaryContainer,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
@@ -185,7 +185,7 @@ class MoodGridConfigActivity : ComponentActivity() {
         val context = this@MoodGridConfigActivity
         
         // Save to SharedPreferences
-        val prefs = context.getSharedPreferences("mood_grid_widget_", Context.MODE_PRIVATE)
+        val prefs = context.getSharedPreferences("mood_grid_widget_$appWidgetId", Context.MODE_PRIVATE)
         prefs.edit().apply {
             putString("tile_0_id", tiles[0]?.id)
             putString("tile_0_name", tiles[0]?.name)

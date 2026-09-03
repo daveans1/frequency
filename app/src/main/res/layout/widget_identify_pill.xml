@@ -6,7 +6,7 @@
     android:orientation="horizontal"
     android:gravity="center"
     android:background="@drawable/widget_pill_background"
-    android:theme="@style/Theme.Widget.frequency"
+    
     android:padding="8dp">
 
     <ImageView

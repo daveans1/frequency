@@ -3,7 +3,7 @@
     android:id="@android:id/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:theme="@style/Theme.Widget.frequency">
+    >
 
     <!-- Album Art - Full bleed -->
     <ImageView
@@ -21,7 +21,7 @@
         android:layout_height="match_parent">
         
         <!-- Gradient overlay at the bottom -->
-        <View
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:layout_gravity="bottom"
@@ -70,13 +70,13 @@
                     android:id="@+id/widget_lens_like_button"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:background="@android:color/transparent"
                     android:src="@drawable/ic_widget_heart_outline_nav"
                     android:scaleType="centerInside"
                     android:padding="8dp"
                     android:contentDescription="@string/like" />
 
-                <Space
+                <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_weight="1" />
@@ -85,7 +85,7 @@
                     android:id="@+id/widget_lens_prev_button"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:background="@android:color/transparent"
                     android:src="@drawable/ic_widget_skip_previous"
                     android:scaleType="centerInside"
                     android:padding="10dp"
@@ -95,7 +95,7 @@
                     android:id="@+id/widget_lens_play_pause"
                     android:layout_width="56dp"
                     android:layout_height="56dp"
-                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:background="@android:color/transparent"
                     android:src="@drawable/ic_widget_play"
                     android:scaleType="centerInside"
                     android:padding="12dp"
@@ -105,7 +105,7 @@
                     android:id="@+id/widget_lens_next_button"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:background="@android:color/transparent"
                     android:src="@drawable/ic_widget_skip_next"
                     android:scaleType="centerInside"
                     android:padding="10dp"

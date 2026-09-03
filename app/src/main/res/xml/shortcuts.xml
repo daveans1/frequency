@@ -8,7 +8,7 @@
         <intent
             android:action="com.david.frequency.action.RECOGNITION"
             android:targetClass="com.david.frequency.MainActivity"
-            android:targetPackage="com.david.frequency" />
+             />
     </shortcut>
     <shortcut
         android:enabled="true"
@@ -18,7 +18,7 @@
         <intent
             android:action="com.david.frequency.action.SEARCH"
             android:targetClass="com.david.frequency.MainActivity"
-            android:targetPackage="com.david.frequency" />
+             />
     </shortcut>
     <shortcut
         android:enabled="true"
@@ -28,7 +28,7 @@
         <intent
             android:action="com.david.frequency.action.LIKED_SONGS"
             android:targetClass="com.david.frequency.MainActivity"
-            android:targetPackage="com.david.frequency" />
+             />
     </shortcut>
     <shortcut
         android:enabled="true"
@@ -38,6 +38,6 @@
         <intent
             android:action="com.david.frequency.action.LIBRARY"
             android:targetClass="com.david.frequency.MainActivity"
-            android:targetPackage="com.david.frequency" />
+             />
     </shortcut>
 </shortcuts>

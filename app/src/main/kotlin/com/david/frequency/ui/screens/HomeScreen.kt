@@ -49,6 +49,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import com.david.frequency.ui.component.acousticGlass
+import com.david.frequency.ui.component.neonGlow
+import com.david.frequency.ui.theme.FrequencyColors
 import androidx.compose.material3.carousel.HorizontalMultiBrowseCarousel
 import androidx.compose.material3.carousel.rememberCarouselState
 import androidx.compose.material3.ContainedLoadingIndicator
@@ -209,12 +212,8 @@ fun CommunityPlaylistCard(
     val isBookmarked = dbPlaylist?.playlist?.bookmarkedAt != null
 
     Card(
-        modifier = modifier
-            .width(320.dp)
-            .height(420.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = containerColor
-        ),
+        modifier = modifier.width(320.dp).height(420.dp).acousticGlass(24.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.Transparent),
         shape = RoundedCornerShape(24.dp),
         border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.25f)),
         onClick = onClick
@@ -223,9 +222,7 @@ fun CommunityPlaylistCard(
             modifier = Modifier.fillMaxSize()
         ) {
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
+                modifier = Modifier.fillMaxWidth().padding(16.dp).acousticGlass(16.dp),
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 // 2x2 Grid of thumbnails
@@ -452,9 +449,7 @@ fun DailyDiscoverCard(
     val playsString = stringResource(R.string.plays)
 
     Card(
-        modifier = modifier
-            .fillMaxSize()
-            .clip(RoundedCornerShape(28.dp))
+        modifier = modifier.fillMaxSize().acousticGlass(28.dp).neonGlow(color = FrequencyColors.ElectricAqua.copy(alpha = 0.2f), radius = 12.dp).clip(RoundedCornerShape(28.dp))
             .combinedClickable(
                 onClick = onClick,
                 onLongClick = {
@@ -471,7 +466,7 @@ fun DailyDiscoverCard(
                 }
             ),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+            containerColor = Color.Transparent,
         ),
         shape = RoundedCornerShape(28.dp)
     ) {
@@ -1042,11 +1037,9 @@ fun HomeScreen(
                     item(key = "wrapped_card") {
                         AnimatedVisibility(visible = shouldShowWrappedCard) {
                             Card(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(16.dp),
+                                modifier = Modifier.fillMaxWidth().padding(16.dp).acousticGlass(16.dp),
                                 colors = CardDefaults.cardColors(
-                                    containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                                    containerColor = Color.Transparent,
                                 ),
                             ) {
                                 Box(

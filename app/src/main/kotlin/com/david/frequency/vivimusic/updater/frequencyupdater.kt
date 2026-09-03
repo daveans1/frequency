@@ -306,11 +306,19 @@ fun UpdateScreen(navController: NavHostController) {
                                 horizontalArrangement = Arrangement.spacedBy(12.dp)
                             ) {
                                 AnimatedActionButton(
-                                    text = stringResource(R.string.later),
-                                    onClick = { navController.navigateUp() },
+                                    text = if (isDownloading && !isDownloadComplete) stringResource(com.david.frequency.R.string.cancel) else stringResource(com.david.frequency.R.string.later),
+                                    onClick = { 
+                                        if (isDownloading && !isDownloadComplete) {
+                                            androidx.work.WorkManager.getInstance(context).cancelUniqueWork("update_download")
+                                            isDownloading = false
+                                            downloadProgress = 0f
+                                        } else {
+                                            navController.navigateUp() 
+                                        }
+                                    },
                                     modifier = Modifier.weight(1f),
                                     isOutlined = true,
-                                    enabled = !isDownloading
+                                    enabled = true
                                 )
                                 AnimatedActionButton(
                                     text = if (currentStatus.isDebugBuild) "Uninstall First" else if (isDownloading) "${(downloadProgress * 100).toInt()}%" else if (isDownloadComplete) stringResource(R.string.install) else stringResource(R.string.update_available),
@@ -873,8 +881,31 @@ suspend fun checkForUpdate(
                 val formattedReleaseDate = formatGitHubDate(runUpdatedAt)
                 val apkDownloadUrl = com.david.frequency.constants.GithubConfig.NIGHTLY_DOWNLOAD_URL
                 
+                var nightlySizeMB = "~30"
+                try {
+                    val url = java.net.URL(apkDownloadUrl)
+                    var connection = url.openConnection() as java.net.HttpURLConnection
+                    connection.requestMethod = "HEAD"
+                    connection.instanceFollowRedirects = true
+                    var status = connection.responseCode
+                    if (status == java.net.HttpURLConnection.HTTP_MOVED_TEMP || status == java.net.HttpURLConnection.HTTP_MOVED_PERM || status == 303) {
+                        val newUrl = connection.getHeaderField("Location")
+                        if (newUrl != null) {
+                            connection = java.net.URL(newUrl).openConnection() as java.net.HttpURLConnection
+                            connection.requestMethod = "HEAD"
+                        }
+                    }
+                    val cl = connection.getHeaderField("Content-Length")
+                    val sizeBytes = cl?.toLongOrNull() ?: 0L
+                    if (sizeBytes > 0) {
+                        nightlySizeMB = String.format("%.1f", sizeBytes / (1024.0 * 1024.0))
+                    }
+                } catch (e: Exception) {
+                    // Ignore, keep "~30"
+                }
+                
                 withContext(Dispatchers.Main) {
-                    onSuccess(displayTag, true, changelogList, "~30", formattedReleaseDate, "Bleeding-edge nightly build from main branch.", null, apkDownloadUrl)
+                    onSuccess(displayTag, true, changelogList, nightlySizeMB, formattedReleaseDate, "Bleeding-edge nightly build from main branch.", null, apkDownloadUrl)
                 }
                 return@withContext
             }

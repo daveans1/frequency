@@ -820,3 +820,5 @@ val SuggestionRegionSlugToName =
         "ae" to "United Arab Emirates",
         "il" to "Israel"
     )
+
+val AmbientBackdropKey = booleanPreferencesKey("ambient_backdrop")

@@ -39,6 +39,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.SearchBarDefaults
+import com.david.frequency.ui.component.acousticGlass
+import com.david.frequency.ui.component.neonGlow
+import com.david.frequency.ui.theme.FrequencyColors
+import androidx.compose.material3.SearchBar
+import com.david.frequency.ui.component.acousticGlass
+import com.david.frequency.ui.component.neonGlow
 import androidx.compose.material3.SecondaryTabRow
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
@@ -311,13 +317,11 @@ fun SearchScreen(
                             }
                         }
                     },
-                    colors = SearchBarDefaults.colors(
-                        containerColor = if (pureBlack) Color(0xFF181818) else MaterialTheme.colorScheme.surfaceContainerHigh
-                    ),
+                    colors = SearchBarDefaults.colors(containerColor = Color.Transparent, dividerColor = Color.Transparent),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = searchBarHorizontalPadding)
-                        .padding(top = searchBarTopPadding)
+                        .padding(top = searchBarTopPadding).acousticGlass(28.dp, alpha = 0.5f, borderColor = if (searchActive) FrequencyColors.ElectricAqua else FrequencyColors.GlassBorder, borderWidth = if (searchActive) 2.dp else 1.dp).let { if (searchActive) it.neonGlow(color = FrequencyColors.ElectricAqua.copy(alpha = 0.2f), radius = 12.dp) else it }
                 ) {
                     if (showSearchContent) {
                         when (searchSource) {

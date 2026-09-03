@@ -1,19 +1,12 @@
-/**
- * vivimusic Project (C) 2026
- * Licensed under GPL-3.0 | See git history for contributors
- */
-
-package com.david.frequency.ui.theme
+﻿package com.david.frequency.ui.theme
 
 import android.graphics.Bitmap
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MaterialExpressiveTheme
 import androidx.compose.material3.MotionScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
+import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.Saver
@@ -23,9 +16,6 @@ import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.palette.graphics.Palette
-import com.materialkolor.PaletteStyle
-import com.materialkolor.dynamiccolor.ColorSpec
-import com.materialkolor.rememberDynamicColorScheme
 import com.materialkolor.score.Score
 
 import androidx.compose.runtime.getValue
@@ -34,15 +24,43 @@ import com.david.frequency.constants.AppFont
 import com.david.frequency.utils.rememberPreference
 import androidx.compose.ui.text.font.FontFamily
 
-val DefaultThemeColor = Color(0xFFED5564)
-val FrequencySignatureColor = Color(0xFF20E0B0)
+// Base fallback for legacy arguments
+val DefaultThemeColor = FrequencyColors.ElectricAqua
+val FrequencySignatureColor = FrequencyColors.ElectricAqua
+
+// Force Deep Abyss & Cyber-Cyan on all Material surfaces
+private val FrequencyColorScheme = darkColorScheme(
+    primary = FrequencyColors.ElectricAqua,
+    onPrimary = FrequencyColors.DeepAbyss,
+    primaryContainer = FrequencyColors.AcousticGlass,
+    onPrimaryContainer = FrequencyColors.ElectricAqua,
+    
+    secondary = FrequencyColors.SonicCyan,
+    onSecondary = FrequencyColors.DeepAbyss,
+    secondaryContainer = FrequencyColors.AcousticGlassSubtle,
+    onSecondaryContainer = FrequencyColors.SonicCyan,
+    
+    tertiary = FrequencyColors.DeepResonance,
+    onTertiary = FrequencyColors.SonicWhite,
+    
+    background = FrequencyColors.DeepAbyss,
+    onBackground = FrequencyColors.SonicWhite,
+    
+    surface = FrequencyColors.DeepAbyss,
+    onSurface = FrequencyColors.SonicWhite,
+    
+    surfaceVariant = FrequencyColors.MidnightSurface,
+    onSurfaceVariant = FrequencyColors.SonicMuted,
+    
+    outline = FrequencyColors.SonicSubtle
+)
 
 @Composable
 fun vivimusicTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    pureBlack: Boolean = false,
+    darkTheme: Boolean = true, // Force Dark
+    pureBlack: Boolean = true, // Ignore, handled by DeepAbyss
     themeColor: Color = DefaultThemeColor,
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit,
 ) {
     val context = LocalContext.current
@@ -58,41 +76,13 @@ fun vivimusicTheme(
         }
     }
 
-        val typography = remember(brandFont) {
+    val typography = remember(brandFont) {
         getTypography(brandFont = brandFont, plainFont = brandFont)
     }
 
-
-    // Determine if system dynamic colors should be used (Android S+, dynamicColor enabled, and default theme color)
-    val useSystemDynamicColor = dynamicColor && (themeColor == DefaultThemeColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
-
-    // Select the appropriate color scheme generation method
-    val baseColorScheme = if (useSystemDynamicColor) {
-        // Use standard Material 3 dynamic color functions for system wallpaper colors
-        if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-    } else {
-        // Use materialKolor with the chosen color or fallback to the brand's FrequencySignatureColor
-        val effectiveSeed = if (themeColor == DefaultThemeColor) FrequencySignatureColor else themeColor
-        rememberDynamicColorScheme(
-            seedColor = effectiveSeed,
-            isDark = darkTheme,
-            specVersion = ColorSpec.SpecVersion.SPEC_2025,
-            style = if (effectiveSeed.toArgb() == 0xFF000000.toInt()) PaletteStyle.Monochrome else PaletteStyle.TonalSpot
-        )
-    }
-
-    // Apply pureBlack modification if needed, similar to original logic
-    val colorScheme = remember(baseColorScheme, pureBlack, darkTheme) {
-        if (darkTheme && pureBlack) {
-            baseColorScheme.pureBlack(true)
-        } else {
-            baseColorScheme
-        }
-    }
-
     MaterialExpressiveTheme(
-        colorScheme = colorScheme,
-        typography = typography, // Use the dynamically configured typography
+        colorScheme = FrequencyColorScheme,
+        typography = typography,
         motionScheme = MotionScheme.expressive(),
         content = content
     )
@@ -124,11 +114,7 @@ fun Bitmap.extractGradientColors(): List<Color> {
         listOf(Color(0xFF595959), Color(0xFF0D0D0D))
 }
 
-fun ColorScheme.pureBlack(apply: Boolean) =
-    if (apply) copy(
-        surface = Color.Black,
-        background = Color.Black
-    ) else this
+fun ColorScheme.pureBlack(apply: Boolean) = this // No-op, DeepAbyss is default
 
 val ColorSaver = object : Saver<Color, Int> {
     override fun restore(value: Int): Color = Color(value)

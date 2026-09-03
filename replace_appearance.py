@@ -1,6 +1,9 @@
-package com.david.frequency.ui.screens.settings
+import os
 
-import android.app.Activity
+path = r'app/src/main/kotlin/com/david/frequency/ui/screens/settings/AppearanceSettings.kt'
+
+new_content = """package com.david.frequency.ui.screens.settings
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -22,19 +25,14 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AppearanceSettings(
-    navController: NavController,
-    scrollBehavior: TopAppBarScrollBehavior,
-    activity: Activity,
-    snackbarHostState: SnackbarHostState,
-) {
+fun AppearanceSettings(navController: NavController) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     
     val (selectedFontValue, onSelectedFontChange) = rememberPreference(SelectedFontKey, defaultValue = AppFont.SYSTEM.value)
     val (ambientBackdrop, onAmbientBackdropChange) = rememberPreference(AmbientBackdropKey, defaultValue = false)
     val (slimNav, onSlimNavChange) = rememberPreference(SlimNavBarKey, defaultValue = false)
     val (floatingNavBar, onFloatingNavBarChange) = rememberPreference(FloatingNavBarKey, defaultValue = false)
-    val (gridItemSize, onGridItemSizeChange) = rememberEnumPreference(GridItemsSizeKey, defaultValue = GridItemSize.SMALL)
+    val (gridItemSize, onGridItemSizeChange) = rememberEnumPreference(GridItemsSizeKey, defaultValue = GridItemSize.Normal)
 
     var showFontDialog by remember { mutableStateOf(false) }
     var showGridSizeDialog by remember { mutableStateOf(false) }
@@ -68,16 +66,16 @@ fun AppearanceSettings(
                 title = "Core Aesthetics",
                 items = listOf(
                     Material3SettingsItem(
-                        icon = null,
-                        title = { Text("App Font") },
-                        description = { Text("Select typography for the app") },
+                        icon = painterResource(R.drawable.text_font),
+                        title = "App Font",
+                        subtitle = "Select typography for the app",
                         onClick = { showFontDialog = true }
                     ),
                     Material3SettingsItem(
-                        icon = painterResource(R.drawable.routine_theme),
-                        title = { Text("Ambient Album Backdrop") },
-                        description = { Text("Blur the playing album art into the app's background. Disabling this enforces pure Obsidian Black.") },
-                        trailingContent = {
+                        icon = painterResource(R.drawable.ic_widget_lens),
+                        title = "Ambient Album Backdrop",
+                        subtitle = "Blur the playing album art into the app's background. Disabling this enforces pure Obsidian Black.",
+                        trailing = {
                             Switch(
                                 checked = ambientBackdrop,
                                 onCheckedChange = onAmbientBackdropChange
@@ -93,18 +91,18 @@ fun AppearanceSettings(
                 items = listOf(
                     Material3SettingsItem(
                         icon = painterResource(R.drawable.nav_bar),
-                        title = { Text("Slim Navigation Bar") },
-                        description = { Text("Reduce the height of the bottom navigation bar") },
-                        trailingContent = {
+                        title = "Slim Navigation Bar",
+                        subtitle = "Reduce the height of the bottom navigation bar",
+                        trailing = {
                             Switch(checked = slimNav, onCheckedChange = onSlimNavChange)
                         },
                         onClick = { onSlimNavChange(!slimNav) }
                     ),
                     Material3SettingsItem(
-                        icon = painterResource(R.drawable.nav_bar),
-                        title = { Text("Floating Navigation Bar") },
-                        description = { Text("Elevate the navigation bar") },
-                        trailingContent = {
+                        icon = painterResource(R.drawable.floating_nav),
+                        title = "Floating Navigation Bar",
+                        subtitle = "Elevate the navigation bar",
+                        trailing = {
                             Switch(checked = floatingNavBar, onCheckedChange = onFloatingNavBarChange)
                         },
                         onClick = { onFloatingNavBarChange(!floatingNavBar) }
@@ -117,8 +115,8 @@ fun AppearanceSettings(
                 items = listOf(
                     Material3SettingsItem(
                         icon = painterResource(R.drawable.grid_view),
-                        title = { Text("Grid Item Size") },
-                        description = { Text("Adjust size of albums and artists in grids") },
+                        title = "Grid Item Size",
+                        subtitle = "Adjust size of albums and artists in grids",
                         onClick = { showGridSizeDialog = true }
                     )
                 )
@@ -128,62 +126,29 @@ fun AppearanceSettings(
         }
 
         if (showFontDialog) {
-            EnumDialog<AppFont>(
+            EnumDialog(
                 title = "App Font",
-                values = AppFont.entries,
-                current = AppFont.fromValue(selectedFontValue),
-                onSelect = { onSelectedFontChange(it.value) },
-                onDismiss = { showFontDialog = false },
-                valueText = { it.name }
+                options = AppFont.entries.toTypedArray(),
+                selectedOption = AppFont.fromValue(selectedFontValue),
+                onOptionSelected = { onSelectedFontChange(it.value) },
+                onDismissRequest = { showFontDialog = false },
+                optionName = { it.name }
             )
         }
 
         if (showGridSizeDialog) {
-            EnumDialog<GridItemSize>(
+            EnumDialog(
                 title = "Grid Item Size",
-                values = GridItemSize.entries,
-                current = gridItemSize,
-                onSelect = onGridItemSizeChange,
-                onDismiss = { showGridSizeDialog = false },
-                valueText = { it.name }
+                options = GridItemSize.entries.toTypedArray(),
+                selectedOption = gridItemSize,
+                onOptionSelected = onGridItemSizeChange,
+                onDismissRequest = { showGridSizeDialog = false },
+                optionName = { it.name }
             )
         }
     }
 }
+"""
 
-
-enum class DarkMode {
-    ON,
-    OFF,
-    AUTO,
-}
-
-enum class NavigationTab {
-    HOME,
-    SEARCH,
-    LIBRARY,
-}
-
-enum class LyricsPosition {
-    LEFT,
-    CENTER,
-    RIGHT,
-}
-
-enum class PlayerTextAlignment {
-    SIDED,
-    CENTER,
-}
-
-
-enum class PlayerDesignOption {
-    CLASSIC
-    ,NEW
-    ,V2
-}
-
-enum class MiniPlayerDesignOption {
-    CLASSIC,
-    NEW,
-    APPLE
-}
+with open(path, 'w', encoding='utf-8') as f:
+    f.write(new_content)
