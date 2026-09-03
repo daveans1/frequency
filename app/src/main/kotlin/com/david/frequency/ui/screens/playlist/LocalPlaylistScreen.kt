@@ -278,10 +278,9 @@ fun LocalPlaylistScreen(
             downloadState =
                 if (songs.all { downloads[it.song.id]?.state == Download.STATE_COMPLETED }) {
                     Download.STATE_COMPLETED
-                } else if (songs.all {
+                } else if (songs.any {
                         downloads[it.song.id]?.state == Download.STATE_QUEUED ||
-                                downloads[it.song.id]?.state == Download.STATE_DOWNLOADING ||
-                                downloads[it.song.id]?.state == Download.STATE_COMPLETED
+                                downloads[it.song.id]?.state == Download.STATE_DOWNLOADING
                     }
                 ) {
                     Download.STATE_DOWNLOADING
@@ -985,10 +984,9 @@ fun LocalPlaylistHeader(
             downloadState =
                 if (songs.all { downloads[it.song.id]?.state == Download.STATE_COMPLETED }) {
                     Download.STATE_COMPLETED
-                } else if (songs.all {
+                } else if (songs.any {
                         downloads[it.song.id]?.state == Download.STATE_QUEUED ||
-                                downloads[it.song.id]?.state == Download.STATE_DOWNLOADING ||
-                                downloads[it.song.id]?.state == Download.STATE_COMPLETED
+                                downloads[it.song.id]?.state == Download.STATE_DOWNLOADING
                     }
                 ) {
                     Download.STATE_DOWNLOADING
@@ -1321,13 +1319,16 @@ fun LocalPlaylistHeader(
                                 when (downloadState) {
                                     Download.STATE_COMPLETED -> onShowRemoveDownloadDialog()
                                     Download.STATE_DOWNLOADING -> {
+                                        val downloads = downloadUtil.downloads.value
                                         songs.forEach { song ->
-                                            DownloadService.sendRemoveDownload(
-                                                context,
-                                                ExoDownloadService::class.java,
-                                                song.song.id,
-                                                false
-                                            )
+                                            if (downloads[song.song.id]?.state != Download.STATE_COMPLETED) {
+                                                DownloadService.sendRemoveDownload(
+                                                    context,
+                                                    ExoDownloadService::class.java,
+                                                    song.song.id,
+                                                    false
+                                                )
+                                            }
                                         }
                                     }
                                     else -> {

@@ -59,12 +59,12 @@ fun LocalPlaylistMenu(
             }
         )
         Download.STATE_QUEUED, Download.STATE_DOWNLOADING -> Material3MenuItemData(
-            title = { Text(stringResource(R.string.downloading)) },
-            description = { Text(stringResource(R.string.download_in_progress_desc)) },
+            title = { Text("Stop downloading") },
+            description = { Text("Stop downloading pending songs") },
             icon = {
-                CircularProgressIndicator(
-                    modifier = Modifier.size(24.dp),
-                    strokeWidth = 2.dp
+                Icon(
+                    painter = painterResource(R.drawable.close),
+                    contentDescription = null
                 )
             },
             onClick = {
@@ -227,12 +227,12 @@ fun AutoPlaylistMenu(
             }
         )
         Download.STATE_QUEUED, Download.STATE_DOWNLOADING -> Material3MenuItemData(
-            title = { Text(stringResource(R.string.downloading)) },
-            description = { Text(stringResource(R.string.download_in_progress_desc)) },
+            title = { Text("Stop downloading") },
+            description = { Text("Stop downloading pending songs") },
             icon = {
-                CircularProgressIndicator(
-                    modifier = Modifier.size(24.dp),
-                    strokeWidth = 2.dp
+                Icon(
+                    painter = painterResource(R.drawable.close),
+                    contentDescription = null
                 )
             },
             onClick = {
@@ -309,12 +309,12 @@ fun TopPlaylistMenu(
             }
         )
         Download.STATE_QUEUED, Download.STATE_DOWNLOADING -> Material3MenuItemData(
-            title = { Text(stringResource(R.string.downloading)) },
-            description = { Text(stringResource(R.string.download_in_progress_desc)) },
+            title = { Text("Stop downloading") },
+            description = { Text("Stop downloading pending songs") },
             icon = {
-                CircularProgressIndicator(
-                    modifier = Modifier.size(24.dp),
-                    strokeWidth = 2.dp
+                Icon(
+                    painter = painterResource(R.drawable.close),
+                    contentDescription = null
                 )
             },
             onClick = {
@@ -391,12 +391,12 @@ fun CachePlaylistMenu(
             }
         )
         Download.STATE_QUEUED, Download.STATE_DOWNLOADING -> Material3MenuItemData(
-            title = { Text(stringResource(R.string.downloading)) },
-            description = { Text(stringResource(R.string.download_in_progress_desc)) },
+            title = { Text("Stop downloading") },
+            description = { Text("Stop downloading pending songs") },
             icon = {
-                CircularProgressIndicator(
-                    modifier = Modifier.size(24.dp),
-                    strokeWidth = 2.dp
+                Icon(
+                    painter = painterResource(R.drawable.close),
+                    contentDescription = null
                 )
             },
             onClick = {

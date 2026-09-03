@@ -1,4 +1,4 @@
-/**
+﻿/**
  * vivimusic Project (C) 2026
  * Licensed under GPL-3.0 | See git history for contributors
  */
@@ -20,6 +20,7 @@ import androidx.media3.datasource.cache.SimpleCache
 import androidx.media3.datasource.okhttp.OkHttpDataSource
 import androidx.media3.exoplayer.offline.Download
 import androidx.media3.exoplayer.offline.DownloadManager
+import androidx.media3.exoplayer.offline.DownloadService
 import androidx.media3.exoplayer.offline.DownloadNotificationHelper
 import com.music.innertube.YouTube
 import com.david.frequency.constants.AudioQuality
@@ -297,10 +298,23 @@ constructor(
     init {
         val result = mutableMapOf<String, Download>()
         val cursor = downloadManager.downloadIndex.getDownloads()
+        var hasUnfinished = false
         while (cursor.moveToNext()) {
-            result[cursor.download.request.id] = cursor.download
+            val download = cursor.download
+            result[download.request.id] = download
+            if (download.state == Download.STATE_QUEUED || download.state == Download.STATE_DOWNLOADING || download.state == Download.STATE_STOPPED) {
+                hasUnfinished = true
+            }
         }
         downloads.value = result
+        
+        if (hasUnfinished) {
+            try {
+                DownloadService.start(context, ExoDownloadService::class.java)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 
     fun getDownload(songId: String): Flow<Download?> = downloads.map { it[songId] }

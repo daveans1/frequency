@@ -137,11 +137,9 @@ fun PlaylistMenu(
             downloadState =
                 if (songs.all { downloads[it.id]?.state == Download.STATE_COMPLETED }) {
                     Download.STATE_COMPLETED
-                } else if (songs.all {
+                } else if (songs.any {
                         downloads[it.id]?.state == Download.STATE_QUEUED ||
-                                downloads[it.id]?.state == Download.STATE_DOWNLOADING ||
-                                downloads[it.id]?.state == Download.STATE_COMPLETED
-                    }
+                                downloads[it.id]?.state == Download.STATE_DOWNLOADING }
                 ) {
                     Download.STATE_DOWNLOADING
                 } else {
@@ -538,7 +536,7 @@ fun PlaylistMenu(
                                 }
                                 Download.STATE_QUEUED, Download.STATE_DOWNLOADING -> {
                                     Material3MenuItemData(
-                                        title = { Text(text = stringResource(R.string.downloading)) },
+                                        title = { Text(text = "Stop downloading") },
                                         icon = {
                                             CircularProgressIndicator(
                                                 modifier = Modifier.size(24.dp),

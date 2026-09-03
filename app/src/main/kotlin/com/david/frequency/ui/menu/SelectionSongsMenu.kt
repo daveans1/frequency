@@ -110,11 +110,9 @@ fun SelectionSongMenu(
             downloadState =
                 if (songSelection.all { downloads[it.id]?.state == Download.STATE_COMPLETED }) {
                     Download.STATE_COMPLETED
-                } else if (songSelection.all {
+                } else if (songSelection.any {
                         downloads[it.id]?.state == Download.STATE_QUEUED ||
-                                downloads[it.id]?.state == Download.STATE_DOWNLOADING ||
-                                downloads[it.id]?.state == Download.STATE_COMPLETED
-                    }
+                                downloads[it.id]?.state == Download.STATE_DOWNLOADING }
                 ) {
                     Download.STATE_DOWNLOADING
                 } else {
@@ -531,11 +529,9 @@ fun SelectionMediaMetadataMenu(
             downloadState =
                 if (songSelection.all { downloads[it.id]?.state == Download.STATE_COMPLETED }) {
                     Download.STATE_COMPLETED
-                } else if (songSelection.all {
+                } else if (songSelection.any {
                         downloads[it.id]?.state == Download.STATE_QUEUED ||
-                                downloads[it.id]?.state == Download.STATE_DOWNLOADING ||
-                                downloads[it.id]?.state == Download.STATE_COMPLETED
-                    }
+                                downloads[it.id]?.state == Download.STATE_DOWNLOADING }
                 ) {
                     Download.STATE_DOWNLOADING
                 } else {

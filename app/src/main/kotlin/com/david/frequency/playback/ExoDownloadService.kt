@@ -36,7 +36,17 @@ class ExoDownloadService : DownloadService(
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (intent?.action == REMOVE_ALL_PENDING_DOWNLOADS) {
-            downloadManager.removeAllDownloads()
+            val cursor = downloadManager.downloadIndex.getDownloads()
+            while (cursor.moveToNext()) {
+                val download = cursor.download
+                if (download.state == Download.STATE_DOWNLOADING || download.state == Download.STATE_QUEUED || download.state == Download.STATE_STOPPED) {
+                    downloadManager.removeDownload(download.request.id)
+                }
+            }
+        } else if (intent?.action == ACTION_PAUSE_DOWNLOADS) {
+            downloadManager.pauseDownloads()
+        } else if (intent?.action == ACTION_RESUME_DOWNLOADS) {
+            downloadManager.resumeDownloads()
         }
         return super.onStartCommand(intent, flags, startId)
     }
@@ -48,8 +58,10 @@ class ExoDownloadService : DownloadService(
     override fun getForegroundNotification(
         downloads: MutableList<Download>,
         notMetRequirements: Int
-    ): Notification =
-        Notification.Builder.recoverBuilder(
+    ): Notification {
+        val isPaused = downloadManager.downloadsPaused
+
+        val builder = Notification.Builder.recoverBuilder(
             this, downloadUtil.downloadNotificationHelper.buildProgressNotification(
                 this,
                 R.drawable.download,
@@ -59,20 +71,51 @@ class ExoDownloadService : DownloadService(
                 downloads,
                 notMetRequirements
             )
-        ).addAction(
+        )
+
+        if (isPaused) {
+            builder.addAction(
+                Notification.Action.Builder(
+                    Icon.createWithResource(this, R.drawable.play),
+                    "Resume",
+                    PendingIntent.getService(
+                        this,
+                        1,
+                        Intent(this, ExoDownloadService::class.java).setAction(ACTION_RESUME_DOWNLOADS),
+                        PendingIntent.FLAG_IMMUTABLE
+                    )
+                ).build()
+            )
+        } else {
+            builder.addAction(
+                Notification.Action.Builder(
+                    Icon.createWithResource(this, R.drawable.pause),
+                    "Pause",
+                    PendingIntent.getService(
+                        this,
+                        2,
+                        Intent(this, ExoDownloadService::class.java).setAction(ACTION_PAUSE_DOWNLOADS),
+                        PendingIntent.FLAG_IMMUTABLE
+                    )
+                ).build()
+            )
+        }
+
+        builder.addAction(
             Notification.Action.Builder(
                 Icon.createWithResource(this, R.drawable.close),
-                getString(android.R.string.cancel),
+                "Stop",
                 PendingIntent.getService(
                     this,
-                    0,
-                    Intent(this, ExoDownloadService::class.java).setAction(
-                        REMOVE_ALL_PENDING_DOWNLOADS
-                    ),
+                    3,
+                    Intent(this, ExoDownloadService::class.java).setAction(REMOVE_ALL_PENDING_DOWNLOADS),
                     PendingIntent.FLAG_IMMUTABLE
                 )
             ).build()
-        ).build()
+        )
+
+        return builder.build()
+    }
 
 
     /**
@@ -111,5 +154,7 @@ class ExoDownloadService : DownloadService(
         const val NOTIFICATION_ID = 1
         const val JOB_ID = 1
         const val REMOVE_ALL_PENDING_DOWNLOADS = "REMOVE_ALL_PENDING_DOWNLOADS"
+        const val ACTION_PAUSE_DOWNLOADS = "ACTION_PAUSE_DOWNLOADS"
+        const val ACTION_RESUME_DOWNLOADS = "ACTION_RESUME_DOWNLOADS"
     }
 }
