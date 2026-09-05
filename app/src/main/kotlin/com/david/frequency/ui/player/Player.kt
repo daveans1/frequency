@@ -353,7 +353,7 @@ fun BottomSheetPlayer(
         defaultValue = AudioQuality.AUTO
     )
     val currentFormat by playerConnection.currentFormat.collectAsState(initial = null)
-    val sliderStyle by rememberEnumPreference(SliderStyleKey, SliderStyle.SLIM)
+    val sliderStyle by rememberEnumPreference(SliderStyleKey, SliderStyle.DEFAULT)
     val squigglySlider by rememberPreference(SquigglySliderKey, defaultValue = false)
     
     // Listen Together state (reactive)

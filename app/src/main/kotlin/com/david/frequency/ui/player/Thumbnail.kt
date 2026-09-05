@@ -619,7 +619,7 @@ private fun ThumbnailItem(
     playerBackground: PlayerBackgroundStyle = PlayerBackgroundStyle.DEFAULT,
     modifier: Modifier = Modifier,
 ) {
-    val rotatingThumbnail by rememberPreference(RotatingThumbnailKey, defaultValue = false)
+    val rotatingThumbnail by rememberPreference(RotatingThumbnailKey, defaultValue = true)
     val showPlayerThumbnailShadow by rememberPreference(ShowPlayerThumbnailShadowKey, defaultValue = false)
     val playerThumbnailShadowElevation by rememberPreference(PlayerThumbnailShadowElevationKey, defaultValue = 8f)
     val isPlaying by playerConnection.isPlaying.collectAsState()

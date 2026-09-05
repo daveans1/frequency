@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <!-- Upstream Frequency strings -->
 <!-- Do not add new features here -->
@@ -445,8 +445,7 @@
     <string name="lyrics_providers">Lyrics providers</string>
     <string name="new_from_your_artists">New from your artists</string>
     <string name="audio_quality_max_info">Might not be available for all songs</string>
-    <string name="widget_lens">Frequency Lens</string>
-    <string name="widget_lens_description">Full-bleed artwork widget with auto-fading controls.</string>
+
     <string name="widget_identify">Identify Song</string>
     <string name="widget_identify_description">Quick tap to instantly recognize music playing around you.</string>
     <string name="widget_mood">Mood Grid</string>

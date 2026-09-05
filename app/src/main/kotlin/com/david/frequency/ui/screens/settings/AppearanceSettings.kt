@@ -123,6 +123,45 @@ fun AppearanceSettings(
                     )
                 )
             )
+
+            val (sliderStyle, onSliderStyleChange) = rememberEnumPreference(SliderStyleKey, SliderStyle.DEFAULT)
+            var showSliderStyleDialog by remember { mutableStateOf(false) }
+            val (rotatingThumbnail, onRotatingThumbnailChange) = rememberPreference(RotatingThumbnailKey, defaultValue = true)
+
+            Material3SettingsGroup(
+                title = "Player",
+                items = listOf(
+                    Material3SettingsItem(
+                        icon = painterResource(R.drawable.linear_scale),
+                        title = { Text("Slider Style") },
+                        description = { Text(sliderStyle.name.lowercase().replaceFirstChar { it.uppercase() }) },
+                        onClick = { showSliderStyleDialog = true }
+                    ),
+                    Material3SettingsItem(
+                        icon = painterResource(R.drawable.album),
+                        title = { Text("Rotating Thumbnail") },
+                        description = { Text("Spin the album art while playing") },
+                        trailingContent = {
+                            Switch(checked = rotatingThumbnail, onCheckedChange = onRotatingThumbnailChange)
+                        },
+                        onClick = { onRotatingThumbnailChange(!rotatingThumbnail) }
+                    )
+                )
+            )
+
+            if (showSliderStyleDialog) {
+                EnumDialog(
+                    title = "Slider Style",
+                    values = SliderStyle.entries,
+                    current = sliderStyle,
+                    onSelect = { 
+                        onSliderStyleChange(it)
+                        showSliderStyleDialog = false 
+                    },
+                    onDismiss = { showSliderStyleDialog = false },
+                    valueText = { it.name.lowercase().replaceFirstChar { char -> char.uppercase() } }
+                )
+            }
             
             Spacer(modifier = Modifier.height(24.dp))
         }

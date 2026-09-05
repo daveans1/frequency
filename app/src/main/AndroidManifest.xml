@@ -303,25 +303,6 @@
                 android:resource="@xml/turntable_widget_info" />
         </receiver>
 
-        <!-- Lens Widget -->
-        <receiver
-            android:name=".widget.LensWidgetReceiver"
-            android:exported="true"
-            android:label="@string/widget_lens">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="com.david.frequency.widget.lens.PLAY_PAUSE" />
-                <action android:name="com.david.frequency.widget.lens.LIKE" />
-                <action android:name="com.david.frequency.widget.lens.NEXT" />
-                <action android:name="com.david.frequency.widget.lens.PREVIOUS" />
-                <action android:name="com.david.frequency.widget.lens.UPDATE_WIDGET" />
-                <action android:name="com.david.frequency.widget.lens.TOGGLE_CONTROLS" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/lens_widget_info" />
-        </receiver>
 
         <!-- Identify Widget -->
         <receiver
