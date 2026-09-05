@@ -1,4 +1,4 @@
-﻿/**
+/**
  * vivimusic Project (C) 2026
  * Licensed under GPL-3.0 | See git history for contributors
  */
@@ -72,7 +72,14 @@ constructor(
     private val connectivityManager = context.getSystemService<ConnectivityManager>()!!
     private val downloadAudioQuality by enumPreference(context, DownloadAudioQualityKey, AudioQuality.MEDIUM)
     private val ipVersion by enumPreference(context, IpVersionKey, IpVersion.AUTO)
+
+    // Keyed by (mediaId::qualityName) so that a Saavn URL cached at 128kbps is never
+    // mistakenly served when the user later downloads the same track at 320kbps.
     private val songUrlCache = HashMap<String, Pair<String, Long>>()
+
+    /** Build a cache key that encodes both track and download quality to prevent cross-tier collisions. */
+    private fun urlCacheKey(mediaId: String) = "$mediaId::${downloadAudioQuality.name}"
+
     private val appContext: Context = context
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
@@ -127,7 +134,9 @@ constructor(
                 // else: fall through and fetch a fresh stream at the correct quality
             }
 
-            songUrlCache[mediaId]?.takeIf { it.second > System.currentTimeMillis() }?.let { (cachedUrl, _) ->
+            // Use a quality-scoped key so a URL cached at a different quality tier is never
+            // served here — the root cause of "downloaded a totally different/wrong song".
+            songUrlCache[urlCacheKey(mediaId)]?.takeIf { it.second > System.currentTimeMillis() }?.let { (cachedUrl, _) ->
                 var newSpec = dataSpec.withUri(cachedUrl.toUri())
                 val cl = runBlocking(Dispatchers.IO) { database.format(mediaId).firstOrNull()?.contentLength }
                 if (dataSpec.length < 0 && cl != null && cl > 0L) {
@@ -216,8 +225,8 @@ constructor(
                 "${playbackData.streamUrl}&range=0-${format.contentLength ?: 10_000_000}"
             }
 
-            songUrlCache[mediaId] = streamUrl to (System.currentTimeMillis() + (playbackData.streamExpiresInSeconds * 1000L))
-            
+            songUrlCache[urlCacheKey(mediaId)] = streamUrl to (System.currentTimeMillis() + (playbackData.streamExpiresInSeconds * 1000L))
+
             var newSpec = dataSpec.withUri(streamUrl.toUri())
             val cl = format.contentLength
             if (dataSpec.length < 0 && cl != null && cl > 0L) {
