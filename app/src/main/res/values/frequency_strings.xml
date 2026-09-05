@@ -144,7 +144,7 @@
     <string name="seek_forward_dynamic">+%1$d seconds forwards</string>
     <string name="seek_backward_dynamic">-%1$d seconds backwards</string>
     <string name="seek_seconds_addup">Progressive seek</string>
-    <string name="seek_seconds_addup_description">If enabled,  Adds up 5 extra seconds incrementally on each seek skip</string>
+    <string name="seek_seconds_addup_description">Add up time incrementally on multiple seek taps</string>
 
     <string name="continue_playing_next_in_queue">Continue playing next in queue</string>
     <string name="next_in_queue">Next in Queue</string>
@@ -206,7 +206,7 @@
     <string name="shuffle_playlist_first">Shuffle playlist/album first</string>
     <string name="shuffle_playlist_first_desc">When shuffling, play all songs from the original playlist/album first, then similar content</string>
     <string name="prevent_duplicate_tracks_in_queue">Prevent duplicate tracks in queue</string>
-    <string name="prevent_duplicate_tracks_in_queue_desc">When adding a track to queue, remove it from its previous position if already present</string>
+    <string name="prevent_duplicate_tracks_in_queue_desc">Move existing tracks instead of adding duplicates</string>
     <string name="show_wrapped_card">Show Wrapped card</string>
     <string name="skip_silence_desc">Fast forward through silent parts of songs</string>
     <string name="skip_silence_instant">Instantly skip silence</string>
@@ -252,7 +252,7 @@
     <string name="discord_use_details_description">Show song title prominently instead of artist names</string>
 
     <string name="enable_similar_content">Enable similar content</string>
-    <string name="similar_content_desc">Automatically add more similar songs when the end of the queue is reached</string>
+    <string name="similar_content_desc">Play related tracks when your queue ends</string>
     <string name="persistent_shuffle_title">Persistent shuffle</string>
     <string name="persistent_shuffle_desc">Keep shuffle enabled when starting new songs or playlists</string>
     <string name="remember_shuffle_and_repeat">Remember shuffle and repeat</string>
@@ -326,7 +326,7 @@
 
     <!-- Player Settings -->
     <string name="disable_load_more_when_repeat_all">Disable load more when repeat all</string>
-    <string name="disable_load_more_when_repeat_all_desc">Don\'t auto load more songs and similar content when repeat all mode is enabled</string>
+    <string name="disable_load_more_when_repeat_all_desc">Pause auto-loading when repeat is active</string>
     <string name="pause_music_when_media_is_muted">Pause music when media is muted</string>
     <string name="resume_on_bluetooth_connect">Resume on Bluetooth connect</string>
     <string name="keep_screen_on_when_player_is_expanded">Keep screen on when player is expanded</string>
@@ -337,7 +337,7 @@
     <string name="crossfade_gapless">Disable for gapless albums</string>
     <string name="crossfade_gapless_desc">Don\'t crossfade if the album is gapless</string>
     <string name="crossfade_beta_title">Beta Feature</string>
-    <string name="crossfade_beta_message">Crossfade is a new feature and may have bugs. If you experience any issues, please report them.\n\nThis feature disables audio offload due to technical limitations.</string>
+    <string name="crossfade_beta_message">Crossfade is experimental and automatically disables audio offload.</string>
 
     <!-- Romanization Settings -->
     <string name="lyrics_romanization_cyrillic">Cyrillic</string>
@@ -382,7 +382,7 @@
 
     <!-- Offload -->
     <string name="audio_offload">Enable offload</string>
-    <string name="audio_offload_description">Use the offload audio path for audio playback. Disabling this may increase power usage but can be useful if you experience issues with audio playback or post processing</string>
+    <string name="audio_offload_description">Use hardware decoding to save battery (experimental)</string>
     <string name="audio_offload_disabled_by_crossfade">Disabled because Crossfade is active</string>
 
     <!-- Google Cast -->
@@ -752,7 +752,7 @@
     <string name="palette_dynamic">Dynamic</string>
     <string name="palette_frequency">Frequency (Cyan)</string>
     <string name="frequency_vibe_preset">Frequency Signature Experience</string>
-    <string name="frequency_vibe_preset_desc">Instantly tune interface: Cyber-cyan accent, floating acoustic dock &amp; ambient player</string>
+    <string name="frequency_vibe_preset_desc">Cyber-cyan accent, floating dock, and ambient player.</string>
     <string name="frequency_vibe_applied">Frequency aesthetic applied! Enjoy the vibe.</string>
     <string name="palette_crimson">Crimson</string>
     <string name="palette_rose">Rose</string>
@@ -784,7 +784,7 @@
     <string name="cd_palette_item">%1$s palette</string>
     <string name="play_all">Play all</string>
     <string name="enable_high_refresh_rate">Enable high refresh rate</string>
-    <string name="enable_high_refresh_rate_desc">Force the display to run at the highest supported refresh rate (e.g. 120Hz)</string>
+    <string name="enable_high_refresh_rate_desc">Run display at maximum refresh rate (e.g. 120Hz)</string>
 
     <!-- Music Recognition -->
     <string name="recognition">Recognition</string>
@@ -851,7 +851,7 @@
     <string name="pin_to_speed_dial">Pin to Speed dial</string>
     <string name="unpin_from_speed_dial">Unpin from Speed dial</string>
     <string name="randomize_home_order">Randomize Home Screen Order</string>
-    <string name="randomize_home_order_desc">Randomly reorder home screen sections with weighted priorities</string>
+    <string name="randomize_home_order_desc">Randomize home screen section order</string>
 
     <!-- Daily Discover -->
     <string name="daily_discover_sounds_like">Sounds like %1$s</string>
@@ -955,7 +955,7 @@
     <string name="update_info_badge">Info &amp; Tips</string>
     <string name="update_info_title">Update Information</string>
     <string name="manual_delete_hint_title">Manual Cleanup</string>
-    <string name="manual_delete_hint_desc">You can manually also delete. Deleting old apk will improve the updater to update properly.</string>
+    <string name="manual_delete_hint_desc">Deleting old APKs helps the updater work properly.</string>
 
     <!-- Playback Log -->
     <string name="logs_heading">Logs</string>
@@ -984,7 +984,7 @@
     <string name="spotify_import_selected">Import Selected</string>
     <string name="spotify_selected_count">%d playlists selected</string>
     <string name="spotify_refresh">Refresh Playlists</string>
-    <string name="spotify_import_desc">Easily import your Spotify playlists and Liked Songs into your library. The app will automatically search YouTube for the best matched tracks and mirror them to local playlists, allowing you to access all your music in one place.</string>
+    <string name="spotify_import_desc">Import your Spotify playlists and Liked Songs to your local library.</string>
     <string name="spotify_liked_songs">Liked Songs</string>
     <string name="spotify_track_count">%d songs</string>
     <string name="spotify_login_title">Spotify Login</string>
@@ -1000,7 +1000,7 @@
     <string name="spotify_import_summary">Imported %1$d playlists: %2$d tracks matched, %3$d tracks failed.</string>
     <string name="spotify_source_summary">\"%1$s\": %2$d of %3$d tracks matched</string>
     <string name="spotify_import_in_progress">Importing from Spotify</string>
-    <string name="spotify_login_desc">Connecting to Spotify is completely local. Your session credentials are only saved on your device.</string>
+    <string name="spotify_login_desc">Your Spotify login is secure and stored only on this device.</string>
 
     <string name="app_font">App Font</string>
     <string name="font_selection">Font Selection</string>
@@ -1023,9 +1023,9 @@
     <string name="youtube_decryption_support">Frequency-Extractor</string>
     <string name="youtube_decryption_support_desc">Automatically extracts YouTube playback configurations. Locked to Active.</string>
     <string name="auto_cipher_fetching">Automatic Updates</string>
-    <string name="auto_cipher_fetching_desc">Fetch new extractor mappings in the background when issues are detected.</string>
+    <string name="auto_cipher_fetching_desc">Background update of extractor mappings to fix playback.</string>
     <string name="force_update_cipher">Force Update Configurations</string>
-    <string name="force_update_cipher_desc">Download the latest extractor override mappings. Limited to 3 updates per day.</string>
+    <string name="force_update_cipher_desc">Manually update extractor mappings (Limit: 3/day).</string>
     <string name="cipher_update_success">Extractor mappings updated! Loaded %d players.</string>
     <string name="cipher_update_failed">Failed to update extractor mappings: %s</string>
     <string name="cipher_updating">Updating extractor configurations…</string>
@@ -1040,7 +1040,7 @@
 
     <!-- Floating Navigation Bar -->
     <string name="floating_navbar">Floating navigation bar</string>
-    <string name="floating_navbar_desc">Show suspended centered navigation bar at the bottom</string>
+    <string name="floating_navbar_desc">Show a floating navigation bar at the bottom</string>
     <string name="enabled">Enabled</string>
     <string name="disabled">Disabled</string>
 
@@ -1050,7 +1050,7 @@
 
     <!-- Data Saver -->
     <string name="data_saver">Data Saver</string>
-    <string name="data_saver_desc">Turns off canvas and background videos to save data and battery</string>
+    <string name="data_saver_desc">Disable background videos to save data and battery</string>
     <string name="data_saver_turns_off_header">Turns off when enabled</string>
     <string name="data_saver_player_canvas">Player canvas animation</string>
     <string name="data_saver_artist_video">Artist canvas video</string>

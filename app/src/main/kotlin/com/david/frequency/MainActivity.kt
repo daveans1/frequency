@@ -161,11 +161,6 @@ import com.david.frequency.constants.PauseSearchHistoryKey
 import com.david.frequency.constants.PureBlackKey
 import com.david.frequency.constants.SYSTEM_DEFAULT
 import com.david.frequency.constants.SelectedThemeColorKey
-import com.david.frequency.constants.AmbientBackdropKey
-import coil3.compose.AsyncImage
-import androidx.compose.ui.draw.blur
-import androidx.compose.ui.draw.drawWithContent
-import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import com.david.frequency.constants.SlimNavBarHeight
 import com.david.frequency.constants.SlimNavBarKey
@@ -486,7 +481,6 @@ class MainActivity : ComponentActivity() {
             pureBlackEnabled && useDarkTheme
         }
 
-        val (ambientBackdrop) = rememberPreference(AmbientBackdropKey, defaultValue = false)
         val (selectedThemeColorInt) = rememberPreference(SelectedThemeColorKey, defaultValue = DefaultThemeColor.toArgb())
         val selectedThemeColor = remember(selectedThemeColorInt) { Color(selectedThemeColorInt) }
 
@@ -501,28 +495,6 @@ class MainActivity : ComponentActivity() {
                     .fillMaxSize()
                     .background(MaterialTheme.colorScheme.surface)
             ) {
-                if (ambientBackdrop) {
-                    val mediaMetadata by playerConnection?.mediaMetadata?.collectAsState() ?: mutableStateOf(null)
-                    val artworkUri = mediaMetadata?.thumbnailUrl
-                    if (artworkUri != null) {
-                        AsyncImage(
-                            model = artworkUri,
-                            contentDescription = null,
-                            contentScale = androidx.compose.ui.layout.ContentScale.Crop,
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .blur(100.dp)
-                                .drawWithContent {
-                                    drawContent()
-                                    drawRect(
-                                        color = Color(0xAA0A0E1A), // Fade it heavily into DeepAbyss
-                                        size = size
-                                    )
-                                }
-                        )
-                    }
-                }
-
                 val focusManager = LocalFocusManager.current
                 val density = LocalDensity.current
                 val configuration = LocalWindowInfo.current

@@ -31,7 +31,6 @@ fun AppearanceSettings(
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     
     val (selectedFontValue, onSelectedFontChange) = rememberPreference(SelectedFontKey, defaultValue = AppFont.SYSTEM.value)
-    val (ambientBackdrop, onAmbientBackdropChange) = rememberPreference(AmbientBackdropKey, defaultValue = false)
     val (slimNav, onSlimNavChange) = rememberPreference(SlimNavBarKey, defaultValue = false)
     val (floatingNavBar, onFloatingNavBarChange) = rememberPreference(FloatingNavBarKey, defaultValue = false)
     val (gridItemSize, onGridItemSizeChange) = rememberEnumPreference(GridItemsSizeKey, defaultValue = GridItemSize.SMALL)
@@ -72,18 +71,6 @@ fun AppearanceSettings(
                         title = { Text("App Font") },
                         description = { Text("Select typography for the app") },
                         onClick = { showFontDialog = true }
-                    ),
-                    Material3SettingsItem(
-                        icon = painterResource(R.drawable.routine_theme),
-                        title = { Text("Ambient Album Backdrop") },
-                        description = { Text("Blur the playing album art into the app's background. Disabling this enforces pure Obsidian Black.") },
-                        trailingContent = {
-                            Switch(
-                                checked = ambientBackdrop,
-                                onCheckedChange = onAmbientBackdropChange
-                            )
-                        },
-                        onClick = { onAmbientBackdropChange(!ambientBackdrop) }
                     )
                 )
             )
@@ -94,7 +81,7 @@ fun AppearanceSettings(
                     Material3SettingsItem(
                         icon = painterResource(R.drawable.nav_bar),
                         title = { Text("Slim Navigation Bar") },
-                        description = { Text("Reduce the height of the bottom navigation bar") },
+                        description = { Text("Use a slimmer bottom navigation bar") },
                         trailingContent = {
                             Switch(checked = slimNav, onCheckedChange = onSlimNavChange)
                         },
@@ -103,7 +90,7 @@ fun AppearanceSettings(
                     Material3SettingsItem(
                         icon = painterResource(R.drawable.nav_bar),
                         title = { Text("Floating Navigation Bar") },
-                        description = { Text("Elevate the navigation bar") },
+                        description = { Text("Make the navigation bar float above content") },
                         trailingContent = {
                             Switch(checked = floatingNavBar, onCheckedChange = onFloatingNavBarChange)
                         },
@@ -127,10 +114,27 @@ fun AppearanceSettings(
             val (sliderStyle, onSliderStyleChange) = rememberEnumPreference(SliderStyleKey, SliderStyle.DEFAULT)
             var showSliderStyleDialog by remember { mutableStateOf(false) }
             val (rotatingThumbnail, onRotatingThumbnailChange) = rememberPreference(RotatingThumbnailKey, defaultValue = true)
+            val (playerBackground, onPlayerBackgroundChange) = rememberEnumPreference(PlayerBackgroundStyleKey, defaultValue = PlayerBackgroundStyle.GRADIENT)
+            var showPlayerBgDialog by remember { mutableStateOf(false) }
 
             Material3SettingsGroup(
                 title = "Player",
                 items = listOf(
+                    Material3SettingsItem(
+                        icon = painterResource(R.drawable.gradient),
+                        title = { Text("Player Background") },
+                        description = {
+                            Text(when (playerBackground) {
+                                PlayerBackgroundStyle.DEFAULT   -> "Default"
+                                PlayerBackgroundStyle.GRADIENT  -> "Gradient"
+                                PlayerBackgroundStyle.BLUR      -> "Blur"
+                                PlayerBackgroundStyle.GLOW_ANIMATED -> "Glow (Animated)"
+                                PlayerBackgroundStyle.APPLE_MUSIC   -> "Apple Music"
+                                PlayerBackgroundStyle.LIVE_MESH     -> "Live Mesh"
+                            })
+                        },
+                        onClick = { showPlayerBgDialog = true }
+                    ),
                     Material3SettingsItem(
                         icon = painterResource(R.drawable.linear_scale),
                         title = { Text("Slider Style") },
@@ -148,6 +152,29 @@ fun AppearanceSettings(
                     )
                 )
             )
+
+            if (showPlayerBgDialog) {
+                EnumDialog(
+                    title = "Player Background",
+                    values = PlayerBackgroundStyle.entries,
+                    current = playerBackground,
+                    onSelect = {
+                        onPlayerBackgroundChange(it)
+                        showPlayerBgDialog = false
+                    },
+                    onDismiss = { showPlayerBgDialog = false },
+                    valueText = {
+                        when (it) {
+                            PlayerBackgroundStyle.DEFAULT       -> "Default"
+                            PlayerBackgroundStyle.GRADIENT      -> "Gradient"
+                            PlayerBackgroundStyle.BLUR          -> "Blur"
+                            PlayerBackgroundStyle.GLOW_ANIMATED -> "Glow (Animated)"
+                            PlayerBackgroundStyle.APPLE_MUSIC   -> "Apple Music"
+                            PlayerBackgroundStyle.LIVE_MESH     -> "Live Mesh"
+                        }
+                    }
+                )
+            }
 
             if (showSliderStyleDialog) {
                 EnumDialog(

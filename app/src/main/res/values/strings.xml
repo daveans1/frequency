@@ -156,9 +156,9 @@
     <string name="edit_lyrics">Edit lyrics</string>
     <string name="search_lyrics">Search lyrics</string>
     <string name="lyrics_swipe_to_change_song">Swipe to change song</string>
-    <string name="lyrics_swipe_to_change_song_desc">Swipe left or right in the artist and song name section in full-screen lyrics to change the song</string>
+    <string name="lyrics_swipe_to_change_song_desc">Swipe artist name in lyrics to change songs</string>
     <string name="lyrics_thumbnail_play_pause">Show play/pause on thumbnail</string>
-    <string name="lyrics_thumbnail_play_pause_desc">Show a play/pause button overlay on the song thumbnail in full-screen lyrics</string>
+    <string name="lyrics_thumbnail_play_pause_desc">Show play/pause over lyrics thumbnail</string>
 
     <string name="edit_song">Edit song</string>
     <string name="song_title">Song title</string>
@@ -321,11 +321,11 @@
     <string name="persistent_queue">Persistent queue</string>
     <string name="persistent_queue_desc">Restore your last queue when the app starts</string>
     <string name="auto_load_more">Auto load more songs</string>
-    <string name="auto_load_more_desc">Automatically add more songs when the end of the queue is reached, if possible</string>
+    <string name="auto_load_more_desc">Play related tracks when your queue ends</string>
     <string name="skip_silence">Skip silence</string>
     <string name="audio_normalization">Audio normalization</string>
     <string name="auto_skip_next_on_error">Auto skip to next song when error occurs</string>
-    <string name="auto_skip_next_on_error_desc">Ensure your continuous playback experience</string>
+    <string name="auto_skip_next_on_error_desc">Skip unplayable tracks automatically</string>
     <string name="stop_music_on_task_clear">Stop music on task clear</string>
     <string name="equalizer">Equalizer</string>
 
@@ -355,9 +355,9 @@
     <string name="clear_search_history">Clear search history</string>
     <string name="clear_search_history_confirm">Are you sure you want to clear all search history?</string>
     <string name="use_login_for_browse">Use login for browsing content</string>
-    <string name="use_login_for_browse_desc">This can influence what content you see and for example shows premium-only albums if you are logged in with a Premium account</string>
+    <string name="use_login_for_browse_desc">Personalize recommendations and content visibility based on your account</string>
     <string name="disable_screenshot">Disable screenshot</string>
-    <string name="disable_screenshot_desc">When this option is on, screenshots and the app\'s view in Recents are disabled.</string>
+    <string name="disable_screenshot_desc">Prevent screenshots and hide content in the Recents screen</string>
     <string name="enable_lrclib">Enable LrcLib lyrics provider</string>
     <string name="enable_kugou">Enable KuGou lyrics provider</string>
     <string name="hide_explicit">Hide explicit content</string>
@@ -371,7 +371,7 @@
     <string name="restore_failed">Failed to restore backup</string>
 
     <string name="discord_integration">Discord Integration</string>
-    <string name="discord_information">frequency uses the RPC library to set your Discord account\'s status. This involves using the Discord Gateway connection, which may be considered a violation of Discord\'s TOS. However, there are no known cases of user accounts being suspended for this reason. Use at your own risk.\n\frequency will only extract your token, and everything else is stored locally.</string>
+    <string name="discord_information">frequency sets your Discord status using the Gateway connection. This technically violates Discord TOS, though bans are extremely rare. Use at your own risk.\n\nYour token is extracted and stored securely on-device.</string>
     <string name="dismiss">Dismiss</string>
     <string name="options">Options</string>
     <string name="preview">Preview</string>
@@ -397,7 +397,7 @@
     <string name="license">GNU License 3.0</string>
     <string name="standard_lyrics_blur">Standard lyrics blur</string>
     <string name="listen_together_smart_resync">Smart Network Resync</string>
-    <string name="listen_together_smart_resync_desc">Automatically catch up with the host after a connection drop</string>
+    <string name="listen_together_smart_resync_desc">Auto-sync with host after connection drops</string>
 
     <string name="retry_stream">Retry Stream</string>
     <string name="retry_stream_desc">Re-resolve and reload audio stream</string>
@@ -414,16 +414,16 @@
     <string name="search_prompt_template_song_try">Try searching \"%s\"â€¦</string>
     <string name="search_prompt_template_artist">Search artist \"%s\"â€¦</string>
     <string name="enable_settings_popup">Enable settings popup</string>
-    <string name="enable_settings_popup_desc">Show quick settings popup when tapping the settings button instead of opening settings directly</string>
+    <string name="enable_settings_popup_desc">Show a quick menu instead of full settings</string>
 
     <!-- Automatic Backup -->
     <string name="automatic_backup">Automatic backup</string>
-    <string name="automatic_backup_desc">Configure automatic backups of your settings and database to prevent data loss.</string>
+    <string name="automatic_backup_desc">Back up settings and library automatically to prevent data loss</string>
     <string name="enable_automatic_backup">Enable Automatic Backup</string>
     <string name="weekly_backup">Weekly backup</string>
-    <string name="weekly_backup_desc">Automatically backup your data every week in the background.</string>
+    <string name="weekly_backup_desc">Back up data weekly in the background</string>
     <string name="backup_before_update">Backup before update</string>
-    <string name="backup_before_update_desc">Automatically backup your data before downloading an app update.</string>
+    <string name="backup_before_update_desc">Back up data before installing app updates</string>
     <string name="stored_backups">Stored backups</string>
     <string name="no_stored_backups">No automatic backups stored yet.</string>
     <string name="backup_type_weekly">Weekly Backup</string>
@@ -436,12 +436,12 @@
     <string name="never_backed_up">Never</string>
     <string name="autobackup_settings">Auto Backup Settings</string>
     <string name="new_release_notifications">New release alerts</string>
-    <string name="new_release_notifications_subtitle">Notify when bookmarked artists release new songs or albums (beta)</string>
+    <string name="new_release_notifications_subtitle">Get alerts for bookmarked artist releases</string>
     <string name="new_release_channel_name">New Releases</string>
     <string name="new_release_channel_desc">Notifications for new releases from your bookmarked artists</string>
     <string name="new_release_notifications_info">On some devices (Samsung, Xiaomi, etc.), battery optimization may delay or block background notifications. To ensure timely alerts, set Frequency to Unrestricted battery usage in your device settings.</string>
     <string name="taste_based_release_notifications">Taste-based release alerts</string>
-    <string name="taste_based_release_notifications_subtitle">Notify when artists you frequently listen to release new songs or albums</string>
+    <string name="taste_based_release_notifications_subtitle">Get alerts based on your listening habits</string>
     <string name="lyrics_providers">Lyrics providers</string>
     <string name="new_from_your_artists">New from your artists</string>
     <string name="audio_quality_max_info">Might not be available for all songs</string>
