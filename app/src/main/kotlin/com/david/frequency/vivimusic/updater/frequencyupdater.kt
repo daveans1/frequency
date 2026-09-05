@@ -143,6 +143,7 @@ fun UpdateScreen(navController: NavHostController) {
     var downloadProgress by remember { mutableStateOf(0f) }
     var isDownloadComplete by remember { mutableStateOf(false) }
     var downloadedFile by remember { mutableStateOf<File?>(null) }
+    var downloadedVersion by remember { mutableStateOf<String?>(null) }
     val snackbarHostState = remember { SnackbarHostState() }
 
     val currentVersion = BuildConfig.VERSION_NAME
@@ -167,6 +168,7 @@ fun UpdateScreen(navController: NavHostController) {
                     WorkInfo.State.SUCCEEDED -> {
                         isDownloading = false
                         isDownloadComplete = true
+                        downloadedVersion = workInfo.outputData.getString("version")
                         val filePath = workInfo.outputData.getString("file_path")
                         if (filePath != null) {
                             downloadedFile = File(filePath)
@@ -321,14 +323,15 @@ fun UpdateScreen(navController: NavHostController) {
                                     enabled = true
                                 )
                                 AnimatedActionButton(
-                                    text = if (currentStatus.isDebugBuild) "Uninstall First" else if (isDownloading) "${(downloadProgress * 100).toInt()}%" else if (isDownloadComplete) stringResource(R.string.install) else stringResource(R.string.update_available),
+                                    text = if (currentStatus.isDebugBuild) "Uninstall First" else if (isDownloading) "${(downloadProgress * 100).toInt()}%" else if (isDownloadComplete && downloadedVersion == currentStatus.version) stringResource(R.string.install) else stringResource(R.string.update_available),
                                     onClick = {
                                         if (currentStatus.isDebugBuild) return@AnimatedActionButton
-                                        if (isDownloadComplete) {
+                                        if (isDownloadComplete && downloadedVersion == currentStatus.version) {
                                             val file = downloadedFile
                                             if (file == null || !file.exists()) {
                                                 isDownloadComplete = false
                                                 downloadedFile = null
+                                                downloadedVersion = null
                                                 downloadProgress = 0f
                                                 return@AnimatedActionButton
                                             }
@@ -363,10 +366,11 @@ fun UpdateScreen(navController: NavHostController) {
                                                 .build()
                                             WorkManager.getInstance(context).enqueueUniqueWork("update_download", ExistingWorkPolicy.REPLACE, downloadRequest)
                                             isDownloading = true
+                                            isDownloadComplete = false
                                         }
                                     },
                                     modifier = Modifier.weight(1f),
-                                    enabled = (!isDownloading || isDownloadComplete) && !currentStatus.isDebugBuild
+                                    enabled = (!isDownloading || (isDownloadComplete && downloadedVersion == currentStatus.version)) && !currentStatus.isDebugBuild
                                 )
                             }
                         }
@@ -956,8 +960,6 @@ suspend fun checkForUpdate(
                 var shouldShow = isNewer
                 if (!shouldShow && !betaEnabled) {
                     if (currentIsBeta && targetIsStable) {
-                        shouldShow = true
-                    } else if (isDifferentVersion && targetIsStable) {
                         shouldShow = true
                     }
                 }

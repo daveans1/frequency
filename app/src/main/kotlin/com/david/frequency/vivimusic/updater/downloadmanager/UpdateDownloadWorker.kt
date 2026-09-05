@@ -51,7 +51,12 @@ class UpdateDownloadWorker(private val context: Context, workerParams: WorkerPar
             }
 
             val isZip = apkUrl.contains("nightly.link") || apkUrl.endsWith(".zip")
-            val downloadFile = if (isZip) File(downloadDir, "frequency_temp.zip") else File(downloadDir, "frequency.apk")
+            
+            // Clean up old updates to avoid appending to them
+            val oldFiles = downloadDir.listFiles()
+            oldFiles?.forEach { if (it.name != "frequency_.apk" && it.name != "frequency_temp_.zip") it.delete() }
+            
+            val downloadFile = if (isZip) File(downloadDir, "frequency_temp_.zip") else File(downloadDir, "frequency_.apk")
             
             var downloadedLength = 0L
             if (downloadFile.exists()) {
@@ -153,7 +158,7 @@ class UpdateDownloadWorker(private val context: Context, workerParams: WorkerPar
             connection.disconnect()
 
             val finalFile = if (isZip) {
-                val targetApkFile = File(downloadDir, "frequency.apk")
+                val targetApkFile = File(downloadDir, "frequency_.apk")
                 var extracted = false
                 try {
                     ZipInputStream(downloadFile.inputStream()).use { zis ->
@@ -204,7 +209,7 @@ class UpdateDownloadWorker(private val context: Context, workerParams: WorkerPar
 
             DownloadNotificationManager.showDownloadComplete(version, finalFile.absolutePath)
 
-            Result.success(workDataOf("file_path" to finalFile.absolutePath))
+            Result.success(workDataOf("file_path" to finalFile.absolutePath, "version" to version))
         } catch (e: Exception) {
             if (e is java.io.IOException) {
                 Timber.tag("UpdateDownloadWorker").e(e, "Network error during download, scheduling retry")
