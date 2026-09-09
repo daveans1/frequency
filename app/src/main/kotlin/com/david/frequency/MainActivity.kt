@@ -1132,6 +1132,7 @@ class MainActivity : ComponentActivity() {
                                     navController = navController,
                                     startDestination = when (tabOpenedFromShortcut ?: defaultOpenTab) {
                                         NavigationTab.HOME -> Screens.Home
+                                        NavigationTab.SEARCH -> Screens.Search
                                         NavigationTab.LIBRARY -> Screens.Library
                                         else -> Screens.Home
                                     }.route,
