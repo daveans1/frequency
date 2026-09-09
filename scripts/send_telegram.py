@@ -20,10 +20,10 @@ def send_telegram_apk():
         sys.exit(1)
 
     short_sha = commit_sha[:7] if commit_sha else "latest"
-    commit_url = f"https://github.com/daveans1/vivi-music/commit/{commit_sha}" if commit_sha else "#"
+    commit_url = f"https://github.com/daveans1/frequency/commit/{commit_sha}" if commit_sha else "#"
 
     caption = (
-        f"🎧 <b>ViviMusic Nightly Build</b>\n"
+        f"🎧 <b>Frequency Nightly Build</b>\n"
         f"━━━━━━━━━━━━━━━━━━━━\n"
         f"📱 <b>Variant:</b> Universal GMS Release\n"
         f"🌿 <b>Branch:</b> <code>beta</code>\n"

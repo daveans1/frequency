@@ -1,20 +1,20 @@
 <div align="center">
   <a href="https://vivimusic.mkmdevilmi.workers.dev/">
-    <img src="assets/bannerofficial.png" alt="VIVI Music Banner" style="display: block; margin: 0 auto; max-width: 100%"/>
+    <img src="assets/bannerofficial.png" alt="Frequency Banner" style="display: block; margin: 0 auto; max-width: 100%"/>
   </a>
   <br>
-  <h1>VIVI Music</h1>
+  <h1>Frequency</h1>
   <h3>More Than Just Music — Your Ultimate Audio Experience</h3>
 
   <p>
-    <a href="https://github.com/daveans1/vivi-music/releases">
-      <img src="https://img.shields.io/github/v/release/daveans1/vivi-music?label=Download&style=for-the-badge&color=4CAF50" alt="Download Latest">
+    <a href="https://github.com/daveans1/frequency/releases">
+      <img src="https://img.shields.io/github/v/release/daveans1/frequency?label=Download&style=for-the-badge&color=4CAF50" alt="Download Latest">
     </a>
-    <a href="https://github.com/daveans1/vivi-music/releases">
-      <img src="https://img.shields.io/github/downloads/daveans1/vivi-music/total?style=for-the-badge&color=blue" alt="Downloads">
+    <a href="https://github.com/daveans1/frequency/releases">
+      <img src="https://img.shields.io/github/downloads/daveans1/frequency/total?style=for-the-badge&color=blue" alt="Downloads">
     </a>
     <a href="LICENSE">
-      <img src="https://img.shields.io/github/license/daveans1/vivi-music?style=for-the-badge" alt="License">
+      <img src="https://img.shields.io/github/license/daveans1/frequency?style=for-the-badge" alt="License">
     </a>
     <a href="https://ko-fi.com/vividhpashokan">
       <img src="https://img.shields.io/badge/Support-Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white" alt="Support on Ko-fi">
@@ -25,15 +25,15 @@
 
 <hr>
 
-<h2>🎵 About VIVI</h2>
+<h2>🎵 About Frequency</h2>
 
 <table align="center" width="100%">
   <tr valign="middle">
     <td width="60%" align="left">
-      <p>✨ <b>VIVI</b> isn't just another music player — it's a premium, modern audio ecosystem engineered for listeners who demand more. Powered by a responsive design engine that dynamically matches your album art's color palette, VIVI completely shifts to match your aesthetic on every single beat.</p>
+      <p>✨ <b>Frequency</b> isn't just another music player — it's a premium, modern audio ecosystem engineered for listeners who demand more. Powered by a responsive design engine that dynamically matches your album art's color palette, Frequency completely shifts to match your aesthetic on every single beat.</p>
       <p>From stunning animated canvas visualizers to fluid physics-based micro-animations, every interaction is crafted to elevate your listening. Stream ad-free, sync karaoke lyrics, share your sound instantly, and enjoy an elegant interface designed with modern Material 3 guidelines.</p>
       <blockquote>
-        <b>🎵 Your music, your aesthetic — only with VIVI.</b>
+        <b>🎵 Your music, your aesthetic — only with Frequency.</b>
       </blockquote>
     </td>
     <td width="40%" align="center">
@@ -54,39 +54,39 @@
   <tr valign="top">
     <td align="center">
       <b>Player</b><br><br>
-      <img src="https://github.com/vivizzz007/vivi-music/blob/main/NEW-UI/1.png?raw=true" width="220" alt="Player Screen 1" />
+      <img src="NEW-UI/1.png" width="220" alt="Player Screen 1" />
     </td>
     <td align="center">
       <b>Player</b><br><br>
-      <img src="https://github.com/vivizzz007/vivi-music/blob/main/NEW-UI/2.png?raw=true" width="220" alt="Player Screen 2" />
+      <img src="NEW-UI/2.png" width="220" alt="Player Screen 2" />
     </td>
     <td align="center">
       <b>Artist Screen</b><br><br>
-      <img src="https://github.com/vivizzz007/vivi-music/blob/main/NEW-UI/3.png?raw=true" width="220" alt="Artist Screen" />
+      <img src="NEW-UI/3.png" width="220" alt="Artist Screen" />
     </td>
   </tr>
   <tr valign="top">
     <td align="center">
       <b>Album Page</b><br><br>
-      <img src="https://github.com/vivizzz007/vivi-music/blob/main/NEW-UI/4.png?raw=true" width="220" alt="Album Page" />
+      <img src="NEW-UI/4.png" width="220" alt="Album Page" />
     </td>
     <td align="center">
       <b>Search Section</b><br><br>
-      <img src="https://github.com/vivizzz007/vivi-music/blob/main/NEW-UI/5.png?raw=true" width="220" alt="Search Section" />
+      <img src="NEW-UI/5.png" width="220" alt="Search Section" />
     </td>
     <td align="center">
       <b>Home Page</b><br><br>
-      <img src="https://github.com/vivizzz007/vivi-music/blob/main/NEW-UI/6.png?raw=true" width="220" alt="Home Page" />
+      <img src="NEW-UI/6.png" width="220" alt="Home Page" />
     </td>
   </tr>
   <tr valign="top">
     <td align="center">
       <b>Built-in Updater</b><br><br>
-      <img src="https://github.com/vivizzz007/vivi-music/blob/main/NEW-UI/7.png?raw=true" width="220" alt="Built-in Updater" />
+      <img src="NEW-UI/7.png" width="220" alt="Built-in Updater" />
     </td>
     <td align="center">
       <b>Audio Control Section</b><br><br>
-      <img src="https://github.com/vivizzz007/vivi-music/blob/main/NEW-UI/8.png?raw=true" width="220" alt="Audio Control Section" />
+      <img src="NEW-UI/8.png" width="220" alt="Audio Control Section" />
     </td>
     <td></td>
   </tr>
@@ -158,7 +158,7 @@
     <tr>
       <td align="center">
         <h3>💖 Support the Project</h3>
-        <p>If you love VIVI Music and want to support its maintenance and active development, please consider buying me a coffee! Your support helps keep this premium audio experience completely active, clean, and ad-free.</p>
+        <p>If you love Frequency and want to support its maintenance and active development, please consider buying me a coffee! Your support helps keep this premium audio experience completely active, clean, and ad-free.</p>
         <br>
         <a href="https://ko-fi.com/vividhpashokan">
           <img src="https://img.shields.io/badge/Support-Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white" alt="Support on Ko-fi">
@@ -174,7 +174,7 @@
 
 <h2>🚗 Android Auto Setup</h2>
 
-<p>If VIVI Music doesn't appear in Android Auto:</p>
+<p>If Frequency doesn't appear in Android Auto:</p>
 
 <ol>
   <li>Open <strong>Android Auto</strong> on your phone</li>
@@ -204,7 +204,7 @@
 
 <h2>🛡️ Privacy & Data Collection</h2>
 
-<p>At <strong>VIVI Music</strong>, your privacy is our top priority. We believe that your music and data belong exclusively to you.</p>
+<p>At <strong>Frequency</strong>, your privacy is our top priority. We believe that your music and data belong exclusively to you.</p>
 
 <ul>
   <li><strong>Zero Data Collection:</strong> We do <strong>not</strong> collect, store, or share any of your personal information, usage habits, or listening history.</li>
@@ -222,7 +222,7 @@
 
 <p>Any trademark, service mark, trade name, or other intellectual property rights used in this project are owned by their respective owners.</p>
 
-<p><strong>VIVI Music</strong> is an independent project created for educational and personal use purposes.</p>
+<p><strong>Frequency</strong> is an independent project created for educational and personal use purposes.</p>
 
 <hr>
 
@@ -245,9 +245,9 @@
         </a>
         <br><br>
         <sub>
-          <a href="https://github.com/daveans1/vivi-music/issues">🐞 Report Bugs</a> &nbsp;•&nbsp;
-          <a href="https://github.com/daveans1/vivi-music/discussions">💬 Discussions</a> &nbsp;•&nbsp;
-          <a href="https://github.com/daveans1/vivi-music/releases">🚀 Releases</a>
+          <a href="https://github.com/daveans1/frequency/issues">🐞 Report Bugs</a> &nbsp;•&nbsp;
+          <a href="https://github.com/daveans1/frequency/discussions">💬 Discussions</a> &nbsp;•&nbsp;
+          <a href="https://github.com/daveans1/frequency/releases">🚀 Releases</a>
         </sub>
       </td>
     </tr>
@@ -260,7 +260,7 @@
 
   <h2>🙏 Special Thanks & Credits</h2>
 
-  <p>VIVI Music is built upon the foundation of amazing open-source projects and developers:</p>
+  <p>Frequency is built upon the foundation of amazing open-source projects and developers:</p>
   <br>
 
   <table border="0" cellpadding="10" cellspacing="0" width="90%">
@@ -289,5 +289,5 @@
   <p align="center"><strong>Thank you to all the amazing developers who made this project possible!</strong></p>
   <hr width="60%">
   <p align="center"><strong>Made with ❤️ for music lovers everywhere</strong></p>
-  <p align="center">⭐ Star this repo if you enjoy VIVI Music!</p>
+  <p align="center">⭐ Star this repo if you enjoy Frequency!</p>
 </div>
