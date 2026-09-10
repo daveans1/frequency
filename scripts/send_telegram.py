@@ -34,7 +34,6 @@ def send_telegram_apk():
     )
 
     boundary = f"------------------------{uuid.uuid4().hex}"
-    
     parts = []
 
     def add_field(name, value):
@@ -59,7 +58,6 @@ def send_telegram_apk():
 
     parts.append(file_header + file_data + b"\r\n")
     parts.append(f"--{boundary}--\r\n".encode("utf-8"))
-
     payload = b"".join(parts)
 
     url = f"https://api.telegram.org/bot{bot_token}/sendDocument"
@@ -74,7 +72,6 @@ def send_telegram_apk():
     )
 
     print(f"Uploading to Telegram (chat_id: {chat_id}, thread: {thread_id})...")
-    
     try:
         with urllib.request.urlopen(req, timeout=300) as response:
             res_body = response.read().decode("utf-8")
