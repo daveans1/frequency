@@ -1,9 +1,9 @@
-# 🤝 Contributing to Vivi Music
+# 🤝 Contributing to Frequency
 
-Thank you for your interest in contributing to **Vivi Music Enterprise Edition**.
+Thank you for your interest in contributing to **Frequency**.
 
 > [!IMPORTANT]
-> This project follows strict engineering standards. Before writing code, you **MUST** read our [Technical Manual](../docs/Technical_Manual.md). It is the **Single Source of Truth** for architecture and workflows.
+> This project follows strict engineering standards. Please review architecture and workflow guidance in this repository before contributing.
 
 ## 🛠️ The Workflow (Strict TDD)
 
@@ -47,6 +47,6 @@ Please use the [Bug Report Template](ISSUE_TEMPLATE/bug_report.yml). Attach logs
 ---
 
 **Quick Links:**
-* 📖 [Technical Manual](../docs/Technical_Manual.md)
-* ⚖️ [Governance & Style](../docs/governance.md)
-* 🧪 [TDD & Quality Blueprint](../docs/tdd_quality_blueprint.md)
+* 🐞 [Report Bugs](../issues/new/choose)
+* 💬 [Discussions](../discussions)
+* 🚀 [Actions](../actions)

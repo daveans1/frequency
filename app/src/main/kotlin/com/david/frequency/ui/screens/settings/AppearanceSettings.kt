@@ -28,14 +28,14 @@ fun AppearanceSettings(
     activity: Activity,
     snackbarHostState: SnackbarHostState,
 ) {
-    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
-    
     val (selectedFontValue, onSelectedFontChange) = rememberPreference(SelectedFontKey, defaultValue = AppFont.SYSTEM.value)
     val (slimNav, onSlimNavChange) = rememberPreference(SlimNavBarKey, defaultValue = false)
     val (floatingNavBar, onFloatingNavBarChange) = rememberPreference(FloatingNavBarKey, defaultValue = false)
+    val (defaultOpenTab, onDefaultOpenTabChange) = rememberEnumPreference(DefaultOpenTabKey, defaultValue = NavigationTab.HOME)
     val (gridItemSize, onGridItemSizeChange) = rememberEnumPreference(GridItemsSizeKey, defaultValue = GridItemSize.SMALL)
 
     var showFontDialog by remember { mutableStateOf(false) }
+    var showDefaultOpenTabDialog by remember { mutableStateOf(false) }
     var showGridSizeDialog by remember { mutableStateOf(false) }
 
     Scaffold(
@@ -95,6 +95,20 @@ fun AppearanceSettings(
                             Switch(checked = floatingNavBar, onCheckedChange = onFloatingNavBarChange)
                         },
                         onClick = { onFloatingNavBarChange(!floatingNavBar) }
+                    ),
+                    Material3SettingsItem(
+                        icon = painterResource(R.drawable.nav_bar),
+                        title = { Text(stringResource(R.string.default_open_tab)) },
+                        description = {
+                            Text(
+                                when (defaultOpenTab) {
+                                    NavigationTab.HOME -> stringResource(R.string.home)
+                                    NavigationTab.SEARCH -> stringResource(R.string.search)
+                                    NavigationTab.LIBRARY -> stringResource(R.string.filter_library)
+                                }
+                            )
+                        },
+                        onClick = { showDefaultOpenTabDialog = true }
                     )
                 )
             )
@@ -212,6 +226,26 @@ fun AppearanceSettings(
                 onSelect = onGridItemSizeChange,
                 onDismiss = { showGridSizeDialog = false },
                 valueText = { it.name }
+            )
+        }
+
+        if (showDefaultOpenTabDialog) {
+            EnumDialog<NavigationTab>(
+                title = stringResource(R.string.default_open_tab),
+                values = NavigationTab.entries,
+                current = defaultOpenTab,
+                onSelect = {
+                    onDefaultOpenTabChange(it)
+                    showDefaultOpenTabDialog = false
+                },
+                onDismiss = { showDefaultOpenTabDialog = false },
+                valueText = {
+                    when (it) {
+                        NavigationTab.HOME -> stringResource(R.string.home)
+                        NavigationTab.SEARCH -> stringResource(R.string.search)
+                        NavigationTab.LIBRARY -> stringResource(R.string.filter_library)
+                    }
+                }
             )
         }
     }

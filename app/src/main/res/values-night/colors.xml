@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Widget colors for dark mode -->
-    <color name="widget_text_primary">#E6E1E5</color>
-    <color name="widget_text_secondary">#CAC4D0</color>
+    <!-- Frequency palette for dark mode widgets. -->
+    <color name="widget_surface">#FF0A0E1A</color>
+    <color name="widget_surface_elevated">#FF121829</color>
+    <color name="widget_container">#FF161E38</color>
+    <color name="widget_container_subtle">#FF1A2238</color>
+    <color name="widget_primary">#FF20E0B0</color>
+    <color name="widget_secondary">#FF3DF5FC</color>
+    <color name="widget_tertiary">#FF6C5CE7</color>
+    <color name="widget_on_primary">#FF0A0E1A</color>
+    <color name="widget_text_primary">#FFF5F7FF</color>
+    <color name="widget_text_secondary">#FF8F9CAE</color>
+    <color name="widget_progress_track">#FF121829</color>
+    <color name="widget_border">#3320E0B0</color>
 </resources>

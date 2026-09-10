@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Widget colors for Android 12+ using Material 3 dynamic colors -->
-    <!-- Material 3 Primary Container (Light) -->
-    <color name="widget_primary_container">@android:color/system_accent1_100</color>
-    <color name="widget_on_primary_container">@android:color/system_accent1_900</color>
-
-    <!-- Material 3 Tertiary Container (Light) - For like button -->
-    <color name="widget_tertiary_container">@android:color/system_accent3_100</color>
-    <color name="widget_on_tertiary_container">@android:color/system_accent3_900</color>
-
-    <!-- Play button colors (Low style) -->
+    <!-- Frequency palette intentionally overrides Android system widget accents. -->
+    <color name="widget_primary_container">#161E38</color>
+    <color name="widget_on_primary_container">#20E0B0</color>
+    <color name="widget_tertiary_container">#1A2238</color>
+    <color name="widget_on_tertiary_container">#3DF5FC</color>
     <color name="widget_play_button_low_bg">@color/widget_primary_container</color>
     <color name="widget_play_button_low_icon">@color/widget_on_primary_container</color>
 </resources>

@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Widget colors fallback for Android < 12 (API 31) -->
-    <!-- Material 3 Primary Container (Light) -->
-    <color name="widget_primary_container">#EADDFF</color>
-    <color name="widget_on_primary_container">#21005D</color>
-
-    <!-- Material 3 Tertiary Container (Light) - For like button -->
-    <color name="widget_tertiary_container">#FFD8E4</color>
-    <color name="widget_on_tertiary_container">#31111D</color>
-
-    <!-- Play button colors (Low style) -->
+    <!-- Frequency widget palette for Android < 12. -->
+    <color name="widget_primary_container">#161E38</color>
+    <color name="widget_on_primary_container">#20E0B0</color>
+    <color name="widget_tertiary_container">#1A2238</color>
+    <color name="widget_on_tertiary_container">#3DF5FC</color>
     <color name="widget_play_button_low_bg">@color/widget_primary_container</color>
     <color name="widget_play_button_low_icon">@color/widget_on_primary_container</color>
 </resources>

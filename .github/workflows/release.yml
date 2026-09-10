@@ -92,7 +92,7 @@ jobs:
         if: steps.check_release.outputs.exists == 'false'
         run: |
           mkdir -p release_assets
-          cp app/build/outputs/apk/universalGms/release/app-universal-gms-release.apk release_assets/vivi.apk
+          cp app/build/outputs/apk/universalGms/release/app-universal-gms-release.apk release_assets/frequency.apk
           cp app/build/outputs/apk/universalGms/release/app-universal-gms-release.apk release_assets/app-universal-gms-release.apk
           cp app/build/outputs/apk/universalFoss/release/app-universal-foss-release.apk release_assets/izzydroid-universal-foss-release.apk
 
@@ -111,13 +111,13 @@ jobs:
           features = []
           fixes = []
           description = None
-          image_url = "https://raw.githubusercontent.com/daveans1/vivi-music/main/assets/banner.png"
+          image_url = "https://raw.githubusercontent.com/daveans1/frequency/main/assets/banner.png"
           for ext in ["png", "jpg"]:
               found = False
               for prefix in ["v", ""]:
                   potential_file = f"NEW-UI/update/{prefix}{version_name}.{ext}"
                   if os.path.exists(potential_file):
-                      image_url = f"https://raw.githubusercontent.com/daveans1/vivi-music/main/NEW-UI/update/{prefix}{version_name}.{ext}"
+                      image_url = f"https://raw.githubusercontent.com/daveans1/frequency/main/NEW-UI/update/{prefix}{version_name}.{ext}"
                       found = True
                       break
               if found:
@@ -152,9 +152,9 @@ jobs:
                       desc_text += "."
                   if fixes:
                       desc_text += " It also includes several bug fixes."
-                  description = f"ViVi Fork v{version_name} {desc_text}"
+                  description = f"Frequency v{version_name} {desc_text}"
               else:
-                  description = f"ViVi Fork v{version_name} brings new updates, features, and bug fixes."
+                  description = f"Frequency v{version_name} brings new updates, features, and bug fixes."
                   
           changelog_sections = []
           if features:
@@ -190,10 +190,10 @@ jobs:
           if [ -f "$NOTES_FILE" ]; then
             cat "$NOTES_FILE" > release_notes.txt
           else
-            echo "ViVi Fork v$VERSION_NAME" > release_notes.txt
+            echo "Frequency v$VERSION_NAME" > release_notes.txt
           fi
           
           gh release create "v$VERSION_NAME" release_assets/* \
-            --title "ViVi Fork v$VERSION_NAME" \
+            --title "Frequency v$VERSION_NAME" \
             --notes-file release_notes.txt \
             --target main

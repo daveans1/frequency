@@ -3,8 +3,18 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="ic_launcher_static_background">#000000</color>
-    
-    <!-- Widget colors for light mode -->
-    <color name="widget_text_primary">#1C1B1F</color>
-    <color name="widget_text_secondary">#49454F</color>
+
+    <!-- Frequency palette used by legacy RemoteViews widgets. -->
+    <color name="widget_surface">#FF0A0E1A</color>
+    <color name="widget_surface_elevated">#FF121829</color>
+    <color name="widget_container">#FF161E38</color>
+    <color name="widget_container_subtle">#FF1A2238</color>
+    <color name="widget_primary">#FF20E0B0</color>
+    <color name="widget_secondary">#FF3DF5FC</color>
+    <color name="widget_tertiary">#FF6C5CE7</color>
+    <color name="widget_on_primary">#FF0A0E1A</color>
+    <color name="widget_text_primary">#FFF5F7FF</color>
+    <color name="widget_text_secondary">#FF8F9CAE</color>
+    <color name="widget_progress_track">#FF121829</color>
+    <color name="widget_border">#3320E0B0</color>
 </resources>
