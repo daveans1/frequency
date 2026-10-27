@@ -36,7 +36,6 @@ import kotlinx.coroutines.flow.collectLatest
 
 import com.david.frequency.ui.theme.FrequencyColors
 import androidx.compose.material3.NavigationBarItemDefaults
-import androidx.compose.ui.graphics.luminance
 
 @Immutable
 private data class NavItemState(
@@ -61,12 +60,7 @@ fun AppNavigationRail(
     pureBlack: Boolean = false,
     onSearchLongClick: (() -> Unit)? = null
 ) {
-    val isLight = MaterialTheme.colorScheme.surface.luminance() > 0.5f
-    val containerColor = when {
-        pureBlack -> Color.Black
-        isLight -> FrequencyColors.LuminousSurface
-        else -> FrequencyColors.MidnightSurface
-    }
+    val containerColor = if (pureBlack) Color.Black else FrequencyColors.AcousticGlass.copy(alpha = 0.92f)
     val haptics = LocalHapticFeedback.current
     val viewConfiguration = LocalViewConfiguration.current
     
@@ -144,7 +138,7 @@ fun AppNavigationBar(
     pureBlack: Boolean = false,
     slimNav: Boolean = false,
     onSearchLongClick: (() -> Unit)? = null,
-    floatingNav: Boolean = true,
+    floatingNav: Boolean = false,
     bottomInset: Dp = 0.dp
 ) {
     if (floatingNav) {
@@ -159,17 +153,8 @@ fun AppNavigationBar(
             bottomInset = bottomInset
         )
     } else {
-        val isLight = MaterialTheme.colorScheme.surface.luminance() > 0.5f
-        val containerColor = when {
-            pureBlack -> Color.Black
-            isLight -> FrequencyColors.LuminousSurface
-            else -> FrequencyColors.MidnightSurface
-        }
-        val contentColor = when {
-            pureBlack -> Color.White
-            isLight -> FrequencyColors.ObsidianText
-            else -> FrequencyColors.SonicWhite
-        }
+        val containerColor = if (pureBlack) Color.Black else FrequencyColors.AcousticGlass.copy(alpha = 0.92f)
+        val contentColor = if (pureBlack) Color.White else FrequencyColors.SonicMuted
         val haptics = LocalHapticFeedback.current
         val viewConfiguration = LocalViewConfiguration.current
         
@@ -225,11 +210,11 @@ fun AppNavigationBar(
                     },
                     interactionSource = interactionSource,
                     colors = NavigationBarItemDefaults.colors(
-                        selectedIconColor = if (isLight) FrequencyColors.ElectricTeal else FrequencyColors.SonicCyan,
-                        selectedTextColor = if (isLight) FrequencyColors.ElectricTeal else FrequencyColors.SonicCyan,
-                        indicatorColor = if (isLight) FrequencyColors.ElectricTeal.copy(alpha = 0.16f) else FrequencyColors.ElectricAqua.copy(alpha = 0.22f),
-                        unselectedIconColor = if (isLight) FrequencyColors.SlateMuted else FrequencyColors.SonicMuted,
-                        unselectedTextColor = if (isLight) FrequencyColors.SlateMuted else FrequencyColors.SonicMuted
+                        selectedIconColor = FrequencyColors.SonicCyan,
+                        selectedTextColor = FrequencyColors.SonicCyan,
+                        indicatorColor = FrequencyColors.ElectricAqua.copy(alpha = 0.22f),
+                        unselectedIconColor = FrequencyColors.SonicMuted,
+                        unselectedTextColor = FrequencyColors.SonicMuted
                     ),
                     icon = {
                         Icon(

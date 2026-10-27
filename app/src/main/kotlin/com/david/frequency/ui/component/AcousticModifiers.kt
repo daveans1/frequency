@@ -1,4 +1,4 @@
-package com.david.frequency.ui.component
+﻿package com.david.frequency.ui.component
 
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
@@ -23,53 +23,26 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.david.frequency.ui.theme.FrequencyColors
 
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.ui.graphics.luminance
-
 /**
- * Applies an Acoustic Frosted Glass surface with a subtle edge sheen.
+ * Applies an Acoustic Frosted Glass surface with a subtle cyan edge sheen.
  */
 fun Modifier.acousticGlass(
     cornerRadius: Dp = 20.dp,
     alpha: Float = 0.82f,
-    backgroundColor: Color = Color.Unspecified,
-    borderColor: Color = Color.Unspecified,
+    borderColor: Color = FrequencyColors.GlassBorder,
     borderWidth: Dp = 1.dp,
     shape: Shape = RoundedCornerShape(cornerRadius)
-): Modifier {
-    val bg = if (backgroundColor != Color.Unspecified) backgroundColor else FrequencyColors.AcousticGlass.copy(alpha = alpha)
-    val border = if (borderColor != Color.Unspecified) borderColor else FrequencyColors.GlassBorder
-    return this
-        .clip(shape)
-        .background(
-            color = bg,
-            shape = shape
-        )
-        .border(
-            width = borderWidth,
-            color = border,
-            shape = shape
-        )
-}
-
-/**
- * Theme-aware acoustic frosted glass that automatically adapts to Light Mode and Dark Mode.
- */
-@Composable
-fun Modifier.adaptiveAcousticGlass(
-    cornerRadius: Dp = 20.dp,
-    alpha: Float = 0.88f,
-    borderWidth: Dp = 1.dp,
-    shape: Shape = RoundedCornerShape(cornerRadius)
-): Modifier {
-    val isLight = MaterialTheme.colorScheme.surface.luminance() > 0.5f
-    val bg = if (isLight) FrequencyColors.AcousticGlassLight.copy(alpha = alpha) else FrequencyColors.AcousticGlass.copy(alpha = alpha)
-    val border = if (isLight) FrequencyColors.GlassBorderLight else FrequencyColors.GlassBorder
-    return this
-        .clip(shape)
-        .background(color = bg, shape = shape)
-        .border(width = borderWidth, color = border, shape = shape)
-}
+): Modifier = this
+    .clip(shape)
+    .background(
+        color = FrequencyColors.AcousticGlass.copy(alpha = alpha),
+        shape = shape
+    )
+    .border(
+        width = borderWidth,
+        color = borderColor,
+        shape = shape
+    )
 
 /**
  * Neon glow radial effect behind components (e.g. for active playback indicators, playheads).

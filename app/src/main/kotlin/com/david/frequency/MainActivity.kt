@@ -521,7 +521,7 @@ class MainActivity : ComponentActivity() {
                     }
                 }
                 val (slimNav) = rememberPreference(SlimNavBarKey, defaultValue = false)
-                val (floatingNav) = rememberPreference(FloatingNavBarKey, defaultValue = true)
+                val (floatingNav) = rememberPreference(FloatingNavBarKey, defaultValue = false)
                 val (useNewMiniPlayerDesign) = rememberPreference(UseNewMiniPlayerDesignKey, defaultValue = true)
                 val (useAppleMiniPlayer) = rememberPreference(UseAppleMiniPlayerKey, defaultValue = false)
                 val defaultOpenTab = remember {

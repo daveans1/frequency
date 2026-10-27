@@ -46,7 +46,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.LocalViewConfiguration
@@ -72,45 +71,36 @@ fun FloatingNavigationBar(
     onSearchLongClick: (() -> Unit)? = null,
     bottomInset: Dp = 0.dp
 ) {
-    val isLight = MaterialTheme.colorScheme.surface.luminance() > 0.5f
-
-    val containerColor = when {
-        pureBlack -> Color.Black
-        isLight -> FrequencyColors.AcousticGlassLight.copy(alpha = 0.94f)
-        else -> FrequencyColors.MidnightSurface.copy(alpha = 0.90f)
+    val containerColor = if (pureBlack) Color.Black else FrequencyColors.AcousticGlass.copy(alpha = 0.88f)
+    val outlineColor = if (pureBlack) Color(0xFF1E1E1E) else FrequencyColors.GlassBorder
+    val spotGlowColor = if (pureBlack) Color.Transparent else FrequencyColors.ElectricAqua.copy(alpha = 0.25f)
+    
+    // Left items are all main screens EXCEPT Search
+    val leftItems = remember(navigationItems) {
+        navigationItems.filter { it != Screens.Search }
     }
-
-    val outlineColor = when {
-        pureBlack -> Color(0xFF222222)
-        isLight -> FrequencyColors.GlassBorderLight
-        else -> FrequencyColors.GlassBorder
-    }
-
-    val shadowColor = when {
-        pureBlack -> Color.Transparent
-        isLight -> Color(0x180F172A)
-        else -> FrequencyColors.ElectricAqua.copy(alpha = 0.25f)
-    }
+    // Right item is Search
+    val rightItem = Screens.Search
 
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(bottom = bottomInset + 10.dp),
+            .padding(bottom = bottomInset + 12.dp), // Suspended above screen edges
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        // Unified Sonic Dock: All navigation destinations gathered into a single floating capsule
+        // Left Pill: Home, Library, (Listen Together if enabled)
         Row(
             modifier = Modifier
-                .height(if (slimNav) 56.dp else 62.dp)
-                .shadow(elevation = 12.dp, shape = CircleShape, spotColor = shadowColor, ambientColor = shadowColor)
+                .height(64.dp)
+                .shadow(elevation = 12.dp, shape = CircleShape, spotColor = spotGlowColor)
                 .background(containerColor, shape = CircleShape)
                 .border(width = 1.dp, color = outlineColor, shape = CircleShape)
-                .padding(horizontal = 8.dp, vertical = 5.dp),
+                .padding(horizontal = 8.dp, vertical = 6.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
-            navigationItems.forEach { screen ->
+            leftItems.forEach { screen ->
                 val isSelected = remember(currentRoute, screen.route, navigationItems) {
                     isRouteSelected(currentRoute, screen.route, navigationItems)
                 }
@@ -118,11 +108,34 @@ fun FloatingNavigationBar(
                     screen = screen,
                     isSelected = isSelected,
                     onClick = { onItemClick(screen, isSelected) },
-                    slimNav = slimNav,
-                    isLight = isLight,
-                    onSearchLongClick = if (screen == Screens.Search) onSearchLongClick else null
+                    slimNav = slimNav
                 )
             }
+        }
+
+        Spacer(modifier = Modifier.width(12.dp))
+
+        // Right Circle Pill: Search (standalone)
+        val isSearchSelected = remember(currentRoute, rightItem.route, navigationItems) {
+            isRouteSelected(currentRoute, rightItem.route, navigationItems)
+        }
+        
+        Box(
+            modifier = Modifier
+                .size(64.dp)
+                .shadow(elevation = 12.dp, shape = CircleShape, spotColor = spotGlowColor)
+                .background(containerColor, shape = CircleShape)
+                .border(width = 1.dp, color = outlineColor, shape = CircleShape),
+            contentAlignment = Alignment.Center
+        ) {
+            FloatingNavItem(
+                screen = rightItem,
+                isSelected = isSearchSelected,
+                onClick = { onItemClick(rightItem, isSearchSelected) },
+                slimNav = slimNav,
+                modifier = Modifier.fillMaxSize(),
+                onSearchLongClick = onSearchLongClick
+            )
         }
     }
 }
@@ -140,7 +153,6 @@ private fun FloatingNavItem(
     isSelected: Boolean,
     onClick: () -> Unit,
     slimNav: Boolean,
-    isLight: Boolean,
     modifier: Modifier = Modifier,
     onSearchLongClick: (() -> Unit)? = null
 ) {
@@ -175,36 +187,24 @@ private fun FloatingNavItem(
     }
 
     val iconRes = if (isSelected) screen.iconIdActive else screen.iconIdInactive
-    val targetContentColor = when {
-        isSelected && isLight -> FrequencyColors.ElectricTeal
-        isSelected && !isLight -> FrequencyColors.SonicCyan
-        !isSelected && isLight -> FrequencyColors.SlateMuted
-        else -> FrequencyColors.SonicMuted
-    }
     val contentColor by animateColorAsState(
-        targetValue = targetContentColor,
-        animationSpec = tween(durationMillis = 200),
-        label = "contentColor"
+        targetValue = if (isSelected) FrequencyColors.SonicCyan else FrequencyColors.SonicMuted,
+        animationSpec = tween(durationMillis = 200)
     )
 
-    val targetBgColor = when {
-        isSelected && isLight -> FrequencyColors.ElectricTeal.copy(alpha = 0.14f)
-        isSelected && !isLight -> FrequencyColors.ElectricAqua.copy(alpha = 0.22f)
-        else -> Color.Transparent
-    }
+    // Acoustic Glass illuminated pill background for selected items
     val backgroundColor by animateColorAsState(
-        targetValue = targetBgColor,
-        animationSpec = tween(durationMillis = 200),
-        label = "backgroundColor"
+        targetValue = if (isSelected) FrequencyColors.ElectricAqua.copy(alpha = 0.18f) else Color.Transparent,
+        animationSpec = tween(durationMillis = 200)
     )
 
+    // Bouncy scale feedback on selection
     val scale by animateFloatAsState(
         targetValue = if (isSelected) 1.04f else 1f,
         animationSpec = spring(
             dampingRatio = Spring.DampingRatioMediumBouncy,
             stiffness = Spring.StiffnessMediumLow
-        ),
-        label = "scale"
+        )
     )
 
     Box(
@@ -222,7 +222,9 @@ private fun FloatingNavItem(
                     }
                 }
             )
-            .padding(horizontal = if (slimNav) 10.dp else 14.dp, vertical = if (slimNav) 8.dp else 10.dp),
+            .let { 
+                if (screen == Screens.Search) it else it.padding(horizontal = 14.dp, vertical = 10.dp)
+            },
         contentAlignment = Alignment.Center
     ) {
         Row(
@@ -241,9 +243,9 @@ private fun FloatingNavItem(
                 tint = contentColor,
                 modifier = Modifier.size(24.dp)
             )
-
+            
             AnimatedVisibility(
-                visible = !slimNav && isSelected,
+                visible = !slimNav && isSelected && screen != Screens.Search,
                 enter = fadeIn(animationSpec = tween(150)) + expandHorizontally(animationSpec = spring(stiffness = Spring.StiffnessMediumLow)),
                 exit = fadeOut(animationSpec = tween(100)) + shrinkHorizontally(animationSpec = spring(stiffness = Spring.StiffnessMediumLow))
             ) {

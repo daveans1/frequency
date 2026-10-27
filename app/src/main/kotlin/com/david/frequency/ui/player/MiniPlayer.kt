@@ -279,17 +279,11 @@ private fun NewMiniPlayer(
     )
     
     // Memoize colors
-    val backgroundColor = when {
-        pureBlack && useDarkTheme -> Color.Black
-        miniPlayerBackground == PlayerBackgroundStyle.DEFAULT -> {
-            if (useDarkTheme) FrequencyColors.MidnightSurface.copy(alpha = 0.92f) else FrequencyColors.AcousticGlassLight.copy(alpha = 0.94f)
-        }
-        else -> MaterialTheme.colorScheme.surfaceContainer
-    }
+    val backgroundColor = if (pureBlack && useDarkTheme) Color.Black else if (miniPlayerBackground == PlayerBackgroundStyle.DEFAULT) FrequencyColors.AcousticGlass.copy(alpha = 0.92f) else MaterialTheme.colorScheme.surfaceContainer
     val isDynamicBackground = miniPlayerBackground != PlayerBackgroundStyle.DEFAULT
     
-    val primaryColor = if (isDynamicBackground) Color.White else if (useDarkTheme) FrequencyColors.SonicCyan else FrequencyColors.ElectricTeal
-    val outlineColor = if (isDynamicBackground) Color.White.copy(alpha = 0.5f) else if (useDarkTheme) FrequencyColors.GlassBorder else FrequencyColors.GlassBorderLight
+    val primaryColor = if (isDynamicBackground) Color.White else FrequencyColors.SonicCyan
+    val outlineColor = if (isDynamicBackground) Color.White.copy(alpha = 0.5f) else FrequencyColors.GlassBorder
     val onSurfaceColor = if (isDynamicBackground) Color.White else MaterialTheme.colorScheme.onSurface
     val errorColor = MaterialTheme.colorScheme.error
 

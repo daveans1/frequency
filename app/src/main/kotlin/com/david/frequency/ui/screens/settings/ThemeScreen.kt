@@ -46,7 +46,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.dynamicDarkColorScheme
@@ -149,43 +148,39 @@ fun ThemeScreen(
         onDynamicThemeChange(isDynamicColor)
     }
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(stringResource(R.string.theme_colors)) },
-                navigationIcon = {
-                    IconButton(onClick = { navController.navigateUp() }) {
-                        Icon(
-                            painter = painterResource(R.drawable.arrow_back),
-                            contentDescription = stringResource(R.string.cd_back)
-                        )
-                    }
-                }
-            )
-        }
-    ) { innerPadding ->
-        if (isLandscape) {
-            LandscapeThemeLayout(
-                innerPadding = innerPadding,
-                darkMode = darkMode,
-                onDarkModeChange = onDarkModeChange,
-                pureBlack = pureBlack,
-                onPureBlackChange = onPureBlackChange,
-                selectedThemeColor = selectedThemeColor,
-                onSelectedThemeColorChange = handleColorSelection
-            )
-        } else {
-            PortraitThemeLayout(
-                innerPadding = innerPadding,
-                darkMode = darkMode,
-                onDarkModeChange = onDarkModeChange,
-                pureBlack = pureBlack,
-                onPureBlackChange = onPureBlackChange,
-                selectedThemeColor = selectedThemeColor,
-                onSelectedThemeColorChange = handleColorSelection
-            )
-        }
+    if (isLandscape) {
+        LandscapeThemeLayout(
+            innerPadding = PaddingValues(0.dp),
+            darkMode = darkMode,
+            onDarkModeChange = onDarkModeChange,
+            pureBlack = pureBlack,
+            onPureBlackChange = onPureBlackChange,
+            selectedThemeColor = selectedThemeColor,
+            onSelectedThemeColorChange = handleColorSelection
+        )
+    } else {
+        PortraitThemeLayout(
+            innerPadding = PaddingValues(0.dp),
+            darkMode = darkMode,
+            onDarkModeChange = onDarkModeChange,
+            pureBlack = pureBlack,
+            onPureBlackChange = onPureBlackChange,
+            selectedThemeColor = selectedThemeColor,
+            onSelectedThemeColorChange = handleColorSelection
+        )
     }
+
+    TopAppBar(
+        title = { Text(stringResource(R.string.theme_colors)) },
+        navigationIcon = {
+            IconButton(onClick = { navController.navigateUp() }) {
+                Icon(
+                    painter = painterResource(R.drawable.arrow_back),
+                    contentDescription = stringResource(R.string.cd_back)
+                )
+            }
+        }
+    )
 }
 
 @Composable
@@ -201,22 +196,23 @@ fun PortraitThemeLayout(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(innerPadding)
             .verticalScroll(rememberScrollState())
-            .padding(horizontal = 16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(20.dp)
+            .padding(innerPadding),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(modifier = Modifier.height(4.dp))
+        Spacer(modifier = Modifier.height(220.dp))
 
         ThemePreviewCard(
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(horizontal = 24.dp)
                 .height(160.dp),
             darkMode = darkMode,
             pureBlack = pureBlack,
             themeColor = selectedThemeColor
         )
+
+        Spacer(modifier = Modifier.height(160.dp))
 
         ThemeControls(
             darkMode = darkMode,
@@ -227,7 +223,7 @@ fun PortraitThemeLayout(
             onSelectedThemeColorChange = onSelectedThemeColorChange
         )
 
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(120.dp))
     }
 }
 
