@@ -26,7 +26,7 @@
   <tr valign="middle">
     <td width="60%" align="left">
       <p>✨ <b>Frequency</b> is a high-performance, open-source audio streaming ecosystem engineered for listeners who crave both acoustic purity and visual elegance. Built around the tactile <b>Sonic Dock</b> and a dynamic dual-mode <b>Luminous & Obsidian</b> theme engine, Frequency breathes alongside your music — shifting colors to match your playing album art while delivering seamless, ad-free streaming from YouTube Music.</p>
-      <p>From word-by-word synchronized karaoke lyrics and high-fidelity parametric DSP equalization to animated canvas backdrops, every detail is crafted to elevate your listening without weighing down your device. Engineered with strict memory discipline to stay buttery smooth on any hardware (from flagship OLED displays to 2GB budget phones), Frequency gives you complete freedom with a 100% local database, zero subscription paywalls, and absolutely no tracking or background telemetry.</p>
+      <p>From word-by-word synchronized karaoke lyrics and high-fidelity parametric DSP equalization to animated canvas backdrops, every detail is crafted to elevate your listening without weighing down your device. Engineered with rigorous memory discipline for fluid 120Hz responsiveness and zero bloat, Frequency gives you complete freedom with a 100% local database, zero subscription paywalls, and absolutely no tracking or background telemetry.</p>
       <blockquote>
         <b>🎵 Your music, your aesthetic, zero limits — tuned to your frequency.</b>
       </blockquote>
@@ -38,7 +38,7 @@
       <hr width="80%">
       <p>🚀 <b>Ad-Free Streaming</b><br><small>High-fidelity background playback with infinite streams from YouTube Music.</small></p>
       <hr width="80%">
-      <p>⚡ <b>Low-RAM Optimization</b><br><small>Engineered to stay buttery smooth and lightweight on budget 2GB–4GB devices.</small></p>
+      <p>⚡ <b>Featherlight Engine</b><br><small>Ultra-responsive, zero-bloat architecture engineered for instant playback and long battery life.</small></p>
     </td>
   </tr>
 </table>
@@ -76,7 +76,7 @@
         <li><b>Dual-Mode Aesthetics:</b> Full support for Luminous Light Mode, Obsidian Dark Mode, and Pure Black AMOLED.</li>
         <li><b>The Sonic Dock:</b> Redesigned unified floating acoustic navigation capsule with tactile micro-motion.</li>
         <li><b>Dynamic Material You:</b> Beautiful adaptive colors that shift to match your playing album art.</li>
-        <li><b>Low-End Device Optimization:</b> Engineered to stay buttery smooth and RAM-efficient on budget hardware (2GB–4GB RAM).</li>
+        <li><b>Ultra-Fluid Performance:</b> Precision-engineered for instant startup, silky 120Hz scrolling, and minimal battery impact.</li>
       </ul>
     </td>
     <td width="50%">
