@@ -25,65 +25,42 @@
 <table align="center" width="100%">
   <tr valign="middle">
     <td width="60%" align="left">
-      <p>✨ <b>Frequency</b> isn't just another music player — it's a premium, modern audio ecosystem engineered for listeners who demand more. Powered by a responsive design engine that dynamically matches your album art's color palette, Frequency completely shifts to match your aesthetic on every single beat.</p>
-      <p>From stunning animated canvas visualizers to fluid physics-based micro-animations, every interaction is crafted to elevate your listening. Stream ad-free, sync karaoke lyrics, share your sound instantly, and enjoy an elegant interface designed with modern Material 3 guidelines.</p>
+      <p>✨ <b>Frequency</b> is a high-performance, open-source audio streaming ecosystem engineered for listeners who crave both acoustic purity and visual elegance. Built around the tactile <b>Sonic Dock</b> and a dynamic dual-mode <b>Luminous & Obsidian</b> theme engine, Frequency breathes alongside your music — shifting colors to match your playing album art while delivering seamless, ad-free streaming from YouTube Music.</p>
+      <p>From word-by-word synchronized karaoke lyrics and high-fidelity parametric DSP equalization to animated canvas backdrops, every detail is crafted to elevate your listening without weighing down your device. Engineered with strict memory discipline to stay buttery smooth on any hardware (from flagship OLED displays to 2GB budget phones), Frequency gives you complete freedom with a 100% local database, zero subscription paywalls, and absolutely no tracking or background telemetry.</p>
       <blockquote>
-        <b>🎵 Your music, your aesthetic — only with Frequency.</b>
+        <b>🎵 Your music, your aesthetic, zero limits — tuned to your frequency.</b>
       </blockquote>
     </td>
     <td width="40%" align="center">
-      <p>🛡️ <b>100% Privacy-First</b><br><small>Completely local database. Absolutely zero trackers, analytics, or background telemetry.</small></p>
+      <p>🛡️ <b>100% Privacy & Local</b><br><small>Completely offline database. Absolutely zero trackers, analytics, or background telemetry.</small></p>
       <hr width="80%">
-      <p>🎨 <b>Material You Engine</b><br><small>Stunning adaptive interface that dynamically morphs colors based on what's playing.</small></p>
+      <p>🎨 <b>Dual-Mode & Sonic Dock</b><br><small>Tactile floating acoustic navigation capsule with Luminous Light & Obsidian Dark themes.</small></p>
       <hr width="80%">
-      <p>🚀 <b>Ad-Free Streaming</b><br><small>Seamless background playback with high-fidelity streams from YouTube Music.</small></p>
+      <p>🚀 <b>Ad-Free Streaming</b><br><small>High-fidelity background playback with infinite streams from YouTube Music.</small></p>
+      <hr width="80%">
+      <p>⚡ <b>Low-RAM Optimization</b><br><small>Engineered to stay buttery smooth and lightweight on budget 2GB–4GB devices.</small></p>
     </td>
   </tr>
 </table>
 
 <hr>
 
-<h2>📸 Screenshots</h2>
+<h2>📸 Design & Interface Showcase</h2>
 
 <table align="center">
   <tr valign="top">
     <td align="center">
-      <b>Player</b><br><br>
-      <img src="https://github.com/vivizzz007/vivi-music/blob/main/NEW-UI/1.png?raw=true" width="220" alt="Player Screen 1" />
+      <b>The Sonic Dock Capsule</b><br><br>
+      <img src="assets/screenshots/sonic_dock.jpg" width="260" alt="Sonic Dock Navigation" />
     </td>
     <td align="center">
-      <b>Player</b><br><br>
-      <img src="https://github.com/vivizzz007/vivi-music/blob/main/NEW-UI/2.png?raw=true" width="220" alt="Player Screen 2" />
+      <b>Luminous Light Mode</b><br><br>
+      <img src="assets/screenshots/appearance_light.jpg" width="260" alt="Luminous Light Mode" />
     </td>
     <td align="center">
-      <b>Artist Screen</b><br><br>
-      <img src="https://github.com/vivizzz007/vivi-music/blob/main/NEW-UI/3.png?raw=true" width="220" alt="Artist Screen" />
+      <b>Obsidian Dark Mode</b><br><br>
+      <img src="assets/screenshots/appearance_dark.jpg" width="260" alt="Obsidian Dark Mode" />
     </td>
-  </tr>
-  <tr valign="top">
-    <td align="center">
-      <b>Album Page</b><br><br>
-      <img src="https://github.com/vivizzz007/vivi-music/blob/main/NEW-UI/4.png?raw=true" width="220" alt="Album Page" />
-    </td>
-    <td align="center">
-      <b>Search Section</b><br><br>
-      <img src="https://github.com/vivizzz007/vivi-music/blob/main/NEW-UI/5.png?raw=true" width="220" alt="Search Section" />
-    </td>
-    <td align="center">
-      <b>Home Page</b><br><br>
-      <img src="https://github.com/vivizzz007/vivi-music/blob/main/NEW-UI/6.png?raw=true" width="220" alt="Home Page" />
-    </td>
-  </tr>
-  <tr valign="top">
-    <td align="center">
-      <b>Built-in Updater</b><br><br>
-      <img src="https://github.com/vivizzz007/vivi-music/blob/main/NEW-UI/7.png?raw=true" width="220" alt="Built-in Updater" />
-    </td>
-    <td align="center">
-      <b>Audio Control Section</b><br><br>
-      <img src="https://github.com/vivizzz007/vivi-music/blob/main/NEW-UI/8.png?raw=true" width="220" alt="Audio Control Section" />
-    </td>
-    <td></td>
   </tr>
 </table>
 
