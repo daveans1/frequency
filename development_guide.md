@@ -1,5 +1,5 @@
-# vivimusic Dev Guide
-This file outlines the process of setting up a local dev environment for vivimusic.
+# Frequency Dev Guide
+This file outlines the process of setting up a local dev environment for Frequency.
 
 ## Prerequisites
 - Java JDK 21
@@ -11,8 +11,8 @@ This file outlines the process of setting up a local dev environment for vivimus
 
 ## Basic setup
 ```bash
-git clone https://github.com/vivimusicGroup/vivimusic
-cd vivimusic
+git clone https://github.com/daveans1/frequency
+cd frequency
 git submodule update --init --recursive
 cd app
 bash generate_proto.sh

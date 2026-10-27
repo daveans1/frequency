@@ -87,12 +87,20 @@ object SettingsSearchRegistry {
             keywords = listOf("slim", "navbar", "navigation", "compact bar")
         ),
         SettingSearchEntry(
+            title = context.getString(R.string.theme_mode),
+            description = "Switch between System, Light, and Dark mode",
+            category = context.getString(R.string.appearance),
+            route = "settings/appearance",
+            icon = R.drawable.palette,
+            keywords = listOf("theme mode", "dark mode", "light mode", "day mode", "night mode", "appearance", "pure black", "amoled")
+        ),
+        SettingSearchEntry(
             title = context.getString(R.string.floating_navbar),
             description = context.getString(R.string.floating_navbar_desc),
             category = context.getString(R.string.appearance),
             route = "settings/appearance",
             icon = R.drawable.nav_bar,
-            keywords = listOf("floating", "navbar", "dock", "pill")
+            keywords = listOf("floating", "navbar", "dock", "pill", "sonic dock", "capsule", "navigation")
         ),
 
         // --- Player & Audio ---
